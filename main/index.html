@@ -1,1 +1,86 @@
-Hello World 수정
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>intro</title>
+<style>
+    *{margin:0; padding:0; box-sizing:border-box}
+    body{overflow:hidden; background-color:#333}
+    .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
+    .wrap{width:100%; height:100%; border-radius:40px; box-shadow:0 0 30px #000}
+</style>
+<script>
+    // 16 : 9 비율 만들기
+    function autoSize(){
+        const app = document.querySelector('.app')
+        const horz = window.innerWidth / 1920
+        const vert = window.innerHeight / 1080
+        if(horz > vert){
+            app.style.transform = `translateX(${(window.innerWidth - 1920 * vert) / 2}px) scale(${vert})`
+        }else{
+            app.style.transform = `translateY(${(window.innerHeight - 1080 * horz) / 2}px) scale(${horz})`
+        }
+    }
+    window.onresize = function(){
+        autoSize()
+    }
+    // 눈 효과
+    function next(limit){
+        return Math.round(Math.random()*limit)
+    }
+    var obj = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    var obj = '.............*************'
+    function randomObj(){
+        return obj.charAt(next(25))
+    }
+    function randomSpeed(maxSpeed){
+        return Math.random() * maxSpeed - Math.random() * maxSpeed
+    }
+    var canvasWidth = screen.availWidth
+    var canvasHeight = screen.availHeight
+    function MovingText(){
+        this.x = next(canvasWidth)
+        this.y = next(canvasHeight)
+        this.vx = randomSpeed(5)
+        this.vy = randomSpeed(5)
+        this.body = document.createElement('h1')
+        this.body.innerHTML = randomObj()
+        this.body.style.position = 'absolute'
+        document.body.appendChild(this.body)
+    }
+    MovingText.prototype.move = function(){
+        if(this.x<0 || this.x>canvasWidth){this.vx *= -1}
+        if(this.y<0 || this.y>canvasHeight){this.vy *= -1}
+        this.x += this.vx
+        this.y += this.vy
+        this.body.style.left = this.x + 'px'
+        this.body.style.top = this.y + 'px'
+    }
+    window.onload = function(){
+        autoSize()
+        var movingTexts = []
+        for(var i=0; i<100; i++){
+            movingTexts.push(new MovingText())
+        }
+        setInterval(function(){
+            for(var i in movingTexts){
+                movingTexts[i].move()
+            }
+        },1000/60)
+        var h1 = document.getElementsByTagName('h1')
+        var color = ['#F60','#F30','#F90','#FC0','#F00','#FF0','#0FF','#0F6','#F09']
+        var color = ['#777','#888','#999','#aaa','#bbb','#ccc','#ddd','#eee','#fff']
+        for(var i=0; i<100; i++){
+            h1[i].style.fontSize = Math.round(Math.random()*100) + 'px'
+            h1[i].style.color = color[Math.round(Math.random()*7)]
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="app">
+        <div class="wrap"></div>
+    </div>
+</body>
+</html>
