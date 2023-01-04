@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>intro</title>
 <style>
     *{margin:0; padding:0; box-sizing:border-box}
@@ -21,9 +21,6 @@
         }else{
             app.style.transform = `translateY(${(window.innerHeight - 1080 * horz) / 2}px) scale(${horz})`
         }
-    }
-    window.onresize = function(){
-        autoSize()
     }
     // 눈 효과
     function next(limit){
@@ -75,6 +72,9 @@
             h1[i].style.fontSize = Math.round(Math.random()*100) + 'px'
             h1[i].style.color = color[Math.round(Math.random()*7)]
         }
+    }
+    window.onresize = function(){
+        autoSize()
     }
 </script>
 </head>
