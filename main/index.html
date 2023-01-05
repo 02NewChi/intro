@@ -12,7 +12,7 @@
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
     .wrap{position:relative; width:100%; height:100%; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden}
     /* noon */
-    .noon{position:absolute; bottom:-100%; left:0; width:100%; height:100%; background-color:rgba(255, 255, 255, 0.1)}
+    .noon{position:absolute; bottom:-100%; left:0; width:100%; height:100%; background-color:#999; transition-duration:0.5s; z-index:0}
     .noon div{position:absolute; background-color:#999; border-radius:45%}
     .noon div:nth-child(2n){transform:rotate(45deg)}
     @keyframes move{
@@ -93,9 +93,20 @@
     </div>
     <script>
         let noon = document.querySelector('.noon')
+        let num = 0
+        let isGo = true
         for(let i=0; i<10; i++){
             noon.innerHTML += '<div style="width:'+Number(500 + (i*50))+'px; height:'+Number(500 + (i*50))+'px; animation:move '+Number(i+4)+'s infinite linear; left:'+Number(-10+(i*10))+'%; top:'+Number(-(i*4))+'%"></div>'
         }
+        let auto = setInterval(function(){
+            num++
+            if(num == 100){
+                isGo = false
+            }
+            if(isGo){
+                noon.style.bottom = Number(-100 + num) + '%'
+            }
+        }, 50)
     </script>
 </body>
 </html>
