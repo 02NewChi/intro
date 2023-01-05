@@ -5,10 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>intro</title>
 <style>
-    *{margin:0; padding:0; box-sizing:border-box}
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+    /* font-family:'Noto Sans KR', sans-serif */
+    *{margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans KR', sans-serif}
     body{width:100%; height:100vh; overflow:hidden; background-color:#333}
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
-    .wrap{width:100%; height:100%; border-radius:40px; box-shadow:0 0 30px #000}
+    .wrap{position:relative; width:100%; height:100%; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden}
+    /* noon */
+    .noon{position:absolute; bottom:-50%; left:0; width:100%; height:100%; background-color:rgba(255, 255, 255, 0.1)}
+    .noon div{position:absolute; top:0; background-color:#999; border-radius:45%}
+    .noon div:nth-child(1){width:1000px; height:1000px; animation:move 5s infinite linear; left:-20%}
+    .noon div:nth-child(2){width:1100px; height:1100px; animation:move 6s infinite linear; left:-10%}
+    .noon div:nth-child(3){width:1200px; height:1200px; animation:move 7s infinite linear; left:0%}
+    .noon div:nth-child(4){width:1300px; height:1300px; animation:move 8s infinite linear; left:10%}
+    .noon div:nth-child(5){width:1400px; height:1400px; animation:move 9s infinite linear; left:20%}
+    .noon div:nth-child(6){width:1500px; height:1500px; animation:move 10s infinite linear; left:30%}
+    .noon div:nth-child(7){width:1600px; height:1600px; animation:move 11s infinite linear; left:40%}
+    .noon div:nth-child(8){width:1700px; height:1700px; animation:move 12s infinite linear; left:50%}
+    .noon div:nth-child(9){width:1800px; height:1800px; animation:move 13s infinite linear; left:60%}
+    .noon div:nth-child(10){width:1900px; height:1900px; animation:move 14s infinite linear; left:70%}
+    @keyframes move{
+        100%{transform:rotate(360deg)}
+    }
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -24,7 +42,7 @@
     }
     // 눈 효과
     function next(limit){
-        return Math.round(Math.random()*limit)
+        return Math.round(Math.random() * limit)
     }
     var obj = '.............*************'
     function randomObj(){
@@ -65,10 +83,10 @@
             }
         },1000/60)
         var h1 = document.getElementsByTagName('h1')
-        var color = ['#777','#888','#999','#aaa','#bbb','#ccc','#ddd','#eee','#fff']
+        var color = ['#777', '#888', '#999', '#aaa', '#bbb', '#ccc', '#ddd', '#eee', '#fff']
         for(var i=0; i<100; i++){
-            h1[i].style.fontSize = Math.round(Math.random()*100) + 'px'
-            h1[i].style.color = color[Math.round(Math.random()*7)]
+            h1[i].style.fontSize = Math.round(Math.random() * 100) + 'px'
+            h1[i].style.color = color[Math.round(Math.random() * 8)]
         }
     }
     window.onresize = function(){
@@ -78,7 +96,15 @@
 </head>
 <body>
     <div class="app">
-        <div class="wrap"></div>
+        <div class="wrap">
+            <div class="noon"></div>
+        </div>
     </div>
+    <script>
+        let noon = document.querySelector('.noon')
+        for(let i=0; i<10; i++){
+            noon.innerHTML += '<div></div>'
+        }
+    </script>
 </body>
 </html>
