@@ -12,8 +12,8 @@
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
     .wrap{position:relative; width:100%; height:100%; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden}
     /* noon */
-    .noon{position:absolute; bottom:-50%; left:0; width:100%; height:100%; background-color:rgba(255, 255, 255, 0.1)}
-    .noon div{position:absolute; top:0; background-color:#999; border-radius:45%}
+    .noon{position:absolute; bottom:-100%; left:0; width:100%; height:100%; background-color:rgba(255, 255, 255, 0.1)}
+    .noon div{position:absolute; background-color:#999; border-radius:45%}
     .noon div:nth-child(2n){transform:rotate(45deg)}
     @keyframes move{
         100%{transform:rotate(360deg)}
@@ -93,8 +93,8 @@
     </div>
     <script>
         let noon = document.querySelector('.noon')
-        for(let i=0; i<5; i++){
-            noon.innerHTML += '<div style="width:'+Number(500 + (i*100))+'px; height:'+Number(500 + (i*100))+'px; animation:move '+Number(i+4)+'s infinite linear; left:'+Number(-10+(i*20))+'%"></div>'
+        for(let i=0; i<10; i++){
+            noon.innerHTML += '<div style="width:'+Number(500 + (i*50))+'px; height:'+Number(500 + (i*50))+'px; animation:move '+Number(i+4)+'s infinite linear; left:'+Number(-10+(i*10))+'%; top:'+Number(-(i*8))+'%"></div>'
         }
     </script>
 </body>
