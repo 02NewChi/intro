@@ -11,6 +11,7 @@
     /* font-family:'Nanum Myeongjo', serif */
     *{margin:0; padding:0; box-sizing:border-box; color:#333; font-size:16px; line-height:1.6em; font-weight:normal; letter-spacing:normal; font-family:'Nanum Myeongjo', serif}
     a{text-decoration:none}
+    h1{pointer-events:none} /* 눈 클릭되지 않게 */
     body{width:100%; height:100vh; overflow:hidden; background-color:#333}
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
     .wrap{position:relative; width:100%; height:100%; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden}
@@ -20,8 +21,11 @@
     .text{position:absolute; top:50px; left:0; width:100%; text-align:center}
     .text p:nth-child(1){font-size:150px; font-weight:800}
     .text p:nth-child(2){font-size:100px; font-weight:700}
-    .text p:nth-child(3){font-size:50px; font-weight:400}
-    .btn{display:table; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:10px 50px; text-align:center; background-color:#666; border-radius:100px; font-size:60px; font-weight:500; font-family:'Noto Sans KR', sans-serif}
+    .text p:nth-child(3){font-size:60px; font-weight:400}
+    .text p{transition-duration:1s}
+    .text p.on{text-shadow:#fdcbce 1px 0 10px; color:#FFF}
+    .btn{display:table; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; transition-duration:0.5s}
+    .btn:hover{background-color:#fdcbce; color:#333}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -100,14 +104,44 @@
                 <p>I am 02NewChi</p>
                 <p>from 2019.12</p>
             </div>
-            <a href="#" class="btn">건너뛰기</a>
+            <a href="#" class="btn">Next</a>
         </div>
     </div>
     <script>
+        // 눈 채워짐
         let noon = document.querySelector('.noon')
         setTimeout(function(){
             noon.style.left = '0'
         }, 1000)
+        // text 반짝임
+        let textP = document.querySelectorAll('.text p')
+        setTimeout(function(){
+            function textOn(){
+                for(let i=0; i<textP.length; i++){
+                    textP[i].classList.add('on')
+                }
+            }
+            function textOff(){
+                for(let i=0; i<textP.length; i++){
+                    textP[i].classList.remove('on')
+                }
+            }
+            setInterval(function(){
+                textOn()
+            }, 2000)
+            setTimeout(function(){
+                setInterval(function(){
+                    textOff()
+                }, 2000)
+            }, 1000)
+        }, 5000)
+        // 눈 색 핑크로 바꾸기
+        setTimeout(function(){
+            let h1s = document.querySelectorAll('h1')
+            for(let i=0; i<h1s.length; i++){
+                h1s[i].style.color = '#fdcbce'
+            }
+        }, 7000)
     </script>
 </body>
 </html>
