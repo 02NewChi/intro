@@ -18,7 +18,8 @@
     /* noon */
     .noon{position:absolute; top:0; left:-100%; width:100%; height:100%; background-color:#999; border-radius:40px; transition-duration:5s}
     .noon img{display:block; position:absolute; bottom:0; right:-500px; width:500px; z-index:1}
-    .bg{position:absolute; bottom:0; left:0; display:block; width:100%}
+    .bg{position:absolute; bottom:0; left:0; display:block; width:100%; transition-duration:1s}
+    .bg.on{opacity:0}
     .text{position:absolute; top:50px; left:0; width:100%; text-align:center}
     .text p:nth-child(1){font-size:150px; font-weight:800}
     .text p:nth-child(2){font-size:100px; font-weight:700}
@@ -100,7 +101,8 @@
             <div class="noon">
                 <img src="img/person.png" alt="막는 사람 이미지">
             </div>
-            <img src="img/bg.png" class="bg" alt="배경 건물 이미지">
+            <img src="img/bg.png" class="bg" alt="배경 건물 이미지 (검정)">
+            <img src="img/bg_on.png" class="bg on" alt="배경 건물 이미지 (핑크)">
             <div class="text">
                 <p>Welcome</p>
                 <p>I am 02NewChi</p>
@@ -115,19 +117,22 @@
         setTimeout(function(){
             noon.style.left = '0'
         }, 1000)
-        // text 반짝임
+        // text & image 반짝임
         let textP = document.querySelectorAll('.text p')
+        let bgOn = document.querySelector('.bg.on')
+        function textOn(){
+            for(let i=0; i<textP.length; i++){
+                textP[i].classList.add('on')
+            }
+            bgOn.style.opacity = '1'
+        }
+        function textOff(){
+            for(let i=0; i<textP.length; i++){
+                textP[i].classList.remove('on')
+            }
+            bgOn.style.opacity = '0'
+        }
         setTimeout(function(){
-            function textOn(){
-                for(let i=0; i<textP.length; i++){
-                    textP[i].classList.add('on')
-                }
-            }
-            function textOff(){
-                for(let i=0; i<textP.length; i++){
-                    textP[i].classList.remove('on')
-                }
-            }
             setInterval(function(){
                 textOn()
             }, 2000)
