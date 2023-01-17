@@ -26,7 +26,7 @@
     .text p:nth-child(3){font-size:60px; font-weight:400}
     .text p{transition-duration:1s}
     .text p.on{text-shadow:#fdcbce 1px 0 10px; color:#FFF}
-    .btn{display:table; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; transition-duration:0.5s}
+    .btn{display:table; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; transition-duration:0.5s; z-index:1}
     .btn:hover{background-color:#fdcbce; color:#333}
 </style>
 <script>
@@ -124,7 +124,7 @@
             for(let i=0; i<textP.length; i++){
                 textP[i].classList.add('on')
             }
-            bgOn.style.opacity = '1'
+            bgOn.style.opacity = '0.2'
         }
         function textOff(){
             for(let i=0; i<textP.length; i++){
