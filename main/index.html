@@ -99,7 +99,7 @@
     <div class="app">
         <div class="wrap">
             <div class="noon">
-                <img src="img/person.png" alt="막는 사람 이미지">
+                <img src="" alt="사람 이미지 또는 물고기 이미지" class="randomImg">
             </div>
             <img src="img/bg.png" class="bg" alt="배경 건물 이미지 (검정)">
             <img src="img/bg_on.png" class="bg on" alt="배경 건물 이미지 (핑크)">
@@ -112,6 +112,12 @@
         </div>
     </div>
     <script>
+        // 사람, 물고기 이미지 랜덤 설정
+        let randomImg = document.querySelector('.randomImg')
+        let randomArr = ['person', 'fish']
+        let randomNum = Math.floor(Math.random() * 2)
+        console.log(randomNum) // 랜덤 숫자 0 또는 1
+        randomImg.setAttribute('src', 'img/' + randomArr[randomNum] + '.png')
         // 눈 채워짐
         let noon = document.querySelector('.noon')
         setTimeout(function(){
