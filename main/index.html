@@ -78,7 +78,7 @@
         for(var i=0; i<100; i++){
             movingTexts.push(new MovingText())
         }
-        setInterval(function(){
+        let autoH1 = setInterval(function(){
             for(var i in movingTexts){
                 movingTexts[i].move()
             }
@@ -89,6 +89,10 @@
             h1[i].style.fontSize = Math.round(Math.random() * 100) + 'px'
             h1[i].style.color = color[Math.round(Math.random() * 8)]
         }
+        // 눈 멈추기
+        setTimeout(() => {
+            clearInterval(autoH1)
+        }, 7000)
     }
     window.onresize = function(){
         autoSize()
