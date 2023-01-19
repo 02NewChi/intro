@@ -148,16 +148,15 @@
                 }, 2000)
                 // 눈 멈추기
                 clearInterval(autoH1)
+                // 눈 색 핑크로 바꾸기
+                let h1s = document.querySelectorAll('h1')
+                for(let i=0; i<h1s.length; i++){
+                    h1s[i].style.color = '#fdcbce'
+                    h1s[i].style.textShadow = '#fdcbce 1px 0 10px'
+                    h1s[i].style.opacity = '0.5'
+                }
             }, 1000)
         }, 5000)
-        // 눈 색 핑크로 바꾸기
-        setTimeout(function(){
-            let h1s = document.querySelectorAll('h1')
-            for(let i=0; i<h1s.length; i++){
-                h1s[i].style.color = '#fdcbce'
-                h1s[i].style.textShadow = '#fdcbce 1px 0 10px'
-            }
-        }, 7000)
     </script>
 </body>
 </html>
