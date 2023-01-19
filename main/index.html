@@ -72,28 +72,7 @@
         this.body.style.left = this.x + 'px'
         this.body.style.top = this.y + 'px'
     }
-    window.onload = function(){
-        autoSize()
-        var movingTexts = []
-        for(var i=0; i<100; i++){
-            movingTexts.push(new MovingText())
-        }
-        let autoH1 = setInterval(function(){
-            for(var i in movingTexts){
-                movingTexts[i].move()
-            }
-        },1000/60)
-        var h1 = document.getElementsByTagName('h1')
-        var color = ['#777', '#888', '#999', '#aaa', '#bbb', '#ccc', '#ddd', '#eee', '#fff']
-        for(var i=0; i<100; i++){
-            h1[i].style.fontSize = Math.round(Math.random() * 100) + 'px'
-            h1[i].style.color = color[Math.round(Math.random() * 8)]
-        }
-        // 눈 멈추기
-        setTimeout(() => {
-            clearInterval(autoH1)
-        }, 7000)
-    }
+    window.onload = function(){ /* body 안 script 상단으로 이동 */ }
     window.onresize = function(){
         autoSize()
     }
@@ -116,6 +95,23 @@
         </div>
     </div>
     <script>
+        // 눈 효과, autoSize() 실행 / from header script
+        autoSize()
+        var movingTexts = []
+        for(var i=0; i<100; i++){
+            movingTexts.push(new MovingText())
+        }
+        let autoH1 = setInterval(function(){
+            for(var i in movingTexts){
+                movingTexts[i].move()
+            }
+        },1000/60)
+        var h1 = document.getElementsByTagName('h1')
+        var color = ['#777', '#888', '#999', '#aaa', '#bbb', '#ccc', '#ddd', '#eee', '#fff']
+        for(var i=0; i<100; i++){
+            h1[i].style.fontSize = Math.round(Math.random() * 100) + 'px'
+            h1[i].style.color = color[Math.round(Math.random() * 8)]
+        }
         // 사람, 물고기 이미지 랜덤 설정
         let randomImg = document.querySelector('.randomImg')
         let randomArr = ['person', 'fish']
@@ -150,6 +146,8 @@
                 setInterval(function(){
                     textOff()
                 }, 2000)
+                // 눈 멈추기
+                clearInterval(autoH1)
             }, 1000)
         }, 5000)
         // 눈 색 핑크로 바꾸기
