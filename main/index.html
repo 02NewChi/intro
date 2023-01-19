@@ -26,8 +26,11 @@
     .text p:nth-child(3){font-size:60px; font-weight:400}
     .text p{transition-duration:1s}
     .text p.on{text-shadow:#fdcbce 1px 0 10px; color:#FFF}
-    .btn{display:table; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; transition-duration:0.5s; z-index:1}
+    .btn{display:table; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; cursor:pointer; transition-duration:0.5s; z-index:1}
     .btn:hover{background-color:#fdcbce; color:#333}
+    .btn.on01{transition-duration:1s; width:60px; height:60px; border-radius:100px; padding:0; background-color:#fdcbce}
+    .btn.on02{bottom:50%; left:50%; transform:translate(-50%, 50%); transition-duration:2s}
+    .btn.on03{position:fixed; width:100%; height:100%; border-radius:40px}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -91,7 +94,7 @@
                 <p>I am 02NewChi</p>
                 <p>from 2019.12</p>
             </div>
-            <a href="#" class="btn">Next</a>
+            <a class="btn">Next</a>
         </div>
     </div>
     <script>
@@ -141,22 +144,44 @@
         setTimeout(function(){
             setInterval(function(){
                 textOn()
-            }, 2000)
-            setTimeout(function(){
-                setInterval(function(){
-                    textOff()
-                }, 2000)
                 // 눈 멈추기
                 clearInterval(autoH1)
-                // 눈 색 핑크로 바꾸기
+                // 눈 색 반투명 핑크로 바꾸기
                 let h1s = document.querySelectorAll('h1')
                 for(let i=0; i<h1s.length; i++){
                     h1s[i].style.color = '#fdcbce'
                     h1s[i].style.textShadow = '#fdcbce 1px 0 10px'
                     h1s[i].style.opacity = '0.5'
                 }
+            }, 2000)
+            setTimeout(function(){
+                setInterval(function(){
+                    textOff()
+                }, 2000)
             }, 1000)
         }, 5000)
+        // 버튼 클릭
+        let btn = document.querySelector('.btn')
+        btn.onclick = function(){
+            this.innerHTML = ''
+            this.classList.add('on01')
+            setTimeout(() => {
+                this.classList.add('on02')
+                setTimeout(() => {
+                    this.classList.add('on03')
+                    this.style.pointerEvents = 'none'
+                    document.querySelector('body').style.transitionDuration = '2s'
+                    document.querySelector('body').style.backgroundColor = '#fdcbce'
+                    let h1s = document.querySelectorAll('h1')
+                    for(let i=0; i<h1s.length; i++){
+                        h1s[i].style.opacity = '0'
+                    }
+                    setTimeout(() => {
+                        location.href = 'http://naver.com'
+                    }, 2000)
+                }, 1000)
+            }, 1000)
+        }
     </script>
 </body>
 </html>
