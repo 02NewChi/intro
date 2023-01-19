@@ -164,12 +164,12 @@
         let btn = document.querySelector('.btn')
         btn.onclick = function(){
             this.innerHTML = ''
+            this.style.pointerEvents = 'none'
             this.classList.add('on01')
             setTimeout(() => {
                 this.classList.add('on02')
                 setTimeout(() => {
                     this.classList.add('on03')
-                    this.style.pointerEvents = 'none'
                     document.querySelector('body').style.transitionDuration = '2s'
                     document.querySelector('body').style.backgroundColor = '#fdcbce'
                     let h1s = document.querySelectorAll('h1')
