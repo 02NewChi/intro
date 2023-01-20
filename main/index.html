@@ -26,6 +26,7 @@
     .text p:nth-child(3){font-size:60px; font-weight:400}
     .text p{transition-duration:1s}
     .text p.on{text-shadow:#fdcbce 1px 0 10px; color:#FFF}
+    .ball{position:absolute; top:-20px; left:-20px; width:20px; height:20px; border-radius:100px; background-color:#fdcbce; transition-duration:0.25s}
     .btn{position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; cursor:pointer; transition-duration:0.5s; z-index:1}
     .btn:hover{background-color:#fdcbce; color:#333}
     .btn.on01{transition-duration:1s; width:60px; height:60px; border-radius:100px; padding:0; background-color:#fdcbce}
@@ -94,6 +95,7 @@
                 <p>I am 02NewChi</p>
                 <p>from 2019.12</p>
             </div>
+            <div class="ball"></div>
             <div class="btn" tabindex="1">Next</div>
         </div>
     </div>
@@ -183,6 +185,36 @@
                 }, 1000)
             }, 1000)
         }
+        // 공 튀기기
+        let ball = document.querySelector('.ball')
+        let ballNum = -1
+        let ballValue = [
+            {top : 337, left : 95},
+            {top : 553, left : 435},
+            {top : 450, left : 585},
+            {top : 689, left : 710},
+            {top : 787, left : 830},
+            {top : 787, left : 990},
+            {top : 689, left : 1110},
+            {top : 450, left : 1230},
+            {top : 553, left : 1410},
+            {top : 337, left : 1680}
+        ]
+        setTimeout(function(){
+            setInterval(function(){
+                if(ballNum < 9){
+                    ballNum ++
+                    ball.style.top = '200px'
+                    ball.style.left = Number(ball.offsetLeft + 100) + 'px'
+                    ball.style.height = '60px'
+                    setTimeout(function(){
+                        ball.style.top = ballValue[ballNum].top + 'px'
+                        ball.style.left = ballValue[ballNum].left + 'px'
+                        ball.style.height = '20px'
+                    }, 250)
+                }
+            }, 500)
+        }, 1000)
     </script>
 </body>
 </html>

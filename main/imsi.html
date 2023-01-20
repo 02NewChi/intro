@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title></title>
+<style>
+.circle{width:400px; height:400px; position:relative; overflow:hidden; border:7px solid #464343; border-radius:100%; background:linear-gradient(#3c5aff, #52f2fd); transform:translate3d(0, 0, 0)}
+.wave01{width:600px; height:600px; position:absolute; top:-65%; left:-30%; border-radius:45%; background:rgba(3,169,244,0.8); animation:move 3s infinite linear}
+.wave02{width:650px; height:650px; position:absolute; top:-90%; left:-30%; border-radius:45%; background:rgba(34,79,242,0.8); animation:move 5s infinite linear}
+.wave03{width:650px; height:650px; position:absolute; top:-100%; left:-30%; border-radius:45%; background:#1d074b; border:6px solid rgba(131,119,152,0.7); animation:move 7s infinite linear}
+.wave04{width:650px; height:650px; position:absolute; top:-100%; left:-30%; border-radius:46%; background:linear-gradient(rgba(252,251,232,0.1) 10%, transparent); animation:move 7s infinite linear}
+@keyframes move{
+    100%{transform:rotate(360deg)}
+}
+</style>
+</head>
+<body>
+    <div class="circle">
+        <div class="wave01"></div>
+        <div class="wave02"></div>
+        <div class="wave03"></div>
+        <div class="wave04"></div>
+    </div>
+</body>
+</html>
