@@ -27,6 +27,8 @@
     .text p{transition-duration:1s}
     .text p.on{text-shadow:#fdcbce 1px 0 10px; color:#FFF}
     .ball{position:absolute; top:-20px; left:-20px; width:20px; height:20px; border-radius:100px; background-color:#fdcbce; transition-duration:0.25s}
+    .ball.on01{top:92% !important; left:50% !important; width:20px !important; height:20px !important; transform:translateX(-50%); transition-duration:1s}
+    .ball.on02{display:none}
     .btn{position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:auto; padding:7px 70px; text-align:center; border-radius:100px; background-color:#666; color:#FFF; font-size:60px; font-weight:700; letter-spacing:10px; cursor:pointer; transition-duration:0.5s; z-index:1}
     .btn:hover{background-color:#fdcbce; color:#333}
     .btn.on01{transition-duration:1s; width:60px; height:60px; border-radius:100px; padding:0; background-color:#fdcbce}
@@ -168,8 +170,10 @@
             this.innerHTML = ''
             this.style.pointerEvents = 'none'
             this.classList.add('on01')
+            ball.classList.add('on01')
             setTimeout(() => {
                 this.classList.add('on02')
+                ball.classList.add('on02')
                 setTimeout(() => {
                     this.classList.add('on03')
                     document.querySelector('body').style.transitionDuration = '2s'
@@ -204,13 +208,17 @@
             setInterval(function(){
                 if(ballNum < 9){
                     ballNum ++
-                    ball.style.top = '200px'
+                    ball.style.top = '100px'
                     ball.style.left = Number(ball.offsetLeft + 100) + 'px'
-                    ball.style.height = '60px'
+                    ball.style.width = '60px'
+                    ball.style.height = '180px'
+                    ball.style.opacity = '0.5'
                     setTimeout(function(){
                         ball.style.top = ballValue[ballNum].top + 'px'
                         ball.style.left = ballValue[ballNum].left + 'px'
+                        ball.style.width = '20px'
                         ball.style.height = '20px'
+                        ball.style.opacity = '1'
                     }, 250)
                 }
             }, 500)
