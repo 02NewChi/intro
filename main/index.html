@@ -176,7 +176,7 @@
                 ball.classList.add('on02')
                 setTimeout(() => {
                     this.classList.add('on03')
-                    document.querySelector('body').style.transitionDuration = '2s'
+                    document.querySelector('body').style.transitionDuration = '1s'
                     document.querySelector('body').style.backgroundColor = '#fdcbce'
                     document.querySelector('.wrap').style.boxShadow = 'none'
                     let h1s = document.querySelectorAll('h1')
@@ -211,7 +211,7 @@
                     ball.style.top = '100px'
                     ball.style.left = Number(ball.offsetLeft + 100) + 'px'
                     ball.style.width = '60px'
-                    ball.style.height = '180px'
+                    ball.style.height = '100px'
                     ball.style.opacity = '0.5'
                     setTimeout(function(){
                         ball.style.top = ballValue[ballNum].top + 'px'

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Card Game</title>
+<style>
+    *{margin:0; padding:0; box-sizing:border-box; transition-duration:1s}
+    /**/
+    body{background-color:#333}
+    .wrap{position:absolute; top:15px; left:15px; width:calc(100% - 30px); height:calc(100vh - 30px); background-color:#CCC; overflow:hidden; border-radius:20px}
+    .cardList{position:absolute; top:0; left:0; width:100%; height:100%}
+    .cardList .card{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:15%; background-color:#666; border:5px solid #333; border-radius:15px}
+    .cardList .card p{display:none}
+    @keyframes cardRotation{
+        100%{transform:translate(-50%, -50%) rotate(360deg)}
+    }
+</style>
+<script>
+</script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="cardList"></div>
+    </div>
+    <script>
+        // 카드 51장 생성
+        let cardList = document.querySelector('.cardList')
+        for(let i=0; i<51; i++){
+            cardList.innerHTML += `
+                <div class="card card${i}"><p>${i}</p></div>
+            `
+        }
+        // 카드 세로 크기 설정
+        let cards = document.querySelectorAll('.card')
+        function cardSize(){
+            for(let i=0; i<cards.length; i++){
+                cards[i].style.height = (cards[i].offsetWidth * 1.25) + 'px'
+            }
+        }
+        cardSize()
+        window.onresize = function(){
+            cardSize()
+        }
+        // 카드 초기 위치값 설정
+        for(let i=0; i<cards.length; i++){
+            cards[i].style.top = `calc(50% + ${i*0.1}%)`
+            cards[i].style.left = `calc(50% - ${i*0.1}%)`
+        }
+        // 카드 회전
+        let limitTop = document.querySelector('.wrap').offsetHeight
+        let limitleft = document.querySelector('.wrap').offsetWidth
+        for(let i=0; i<cards.length; i++){
+            cards[i].onclick = function(){
+                for(let k=0; k<cards.length; k++){
+                    // 1단계 (회전)
+                    cards[k].style.pointerEvents = 'none' // 재 클릭 방지
+                    cards[k].style.animation = `cardRotation ${cards.length - k}s linear infinite`
+                    // 2단계 (퍼짐)
+                    setTimeout(function(){
+                        let shake = setInterval(function(){
+                            cards[k].style.top = Math.floor(Math.random() * limitTop) + 'px'
+                            cards[k].style.left = Math.floor(Math.random() * limitleft) + 'px'
+                        }, 1000)
+                        setTimeout(function(){
+                            clearInterval(shake)
+                            cards[k].style.top = `calc(50% + ${k*0.1}%)`
+                            cards[k].style.left = `calc(50% - ${k*0.1}%)`
+                            cards[k].style.animation = 'none'
+                            cards[k].style.pointerEvents = 'auto' // 재 클릭 방지
+                        }, 5000)
+                    }, 3000)
+                }
+            }
+        }
+    </script>
+</body>
+</html>
