@@ -2,13 +2,14 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Card Game</title>
 <style>
     *{margin:0; padding:0; box-sizing:border-box; transition-duration:1s}
     /**/
-    body{background-color:#333}
-    .wrap{position:absolute; top:15px; left:15px; width:calc(100% - 30px); height:calc(100vh - 30px); background-color:#CCC; overflow:hidden; border-radius:20px}
+    body{width:100%; height:100vh; overflow:hidden; background-color:#333}
+    .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
+    .wrap{position:relative; width:100%; height:100%; background-color:#999; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden; transition-duration:0.5s}
     .cardList{position:absolute; top:0; left:0; width:100%; height:100%}
     .cardList .card{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:15%; background-color:#666; border:5px solid #333; border-radius:15px}
     .cardList .card p{display:none}
@@ -17,11 +18,26 @@
     }
 </style>
 <script>
+    // 16 : 9 비율 만들기
+    function autoSize(){
+        const app = document.querySelector('.app')
+        const horz = window.innerWidth / 1920
+        const vert = window.innerHeight / 1080
+        if(horz > vert){
+            app.style.transform = `translateX(${(window.innerWidth - 1920 * vert) / 2}px) scale(${vert})`
+        }else{
+            app.style.transform = `translateY(${(window.innerHeight - 1080 * horz) / 2}px) scale(${horz})`
+        }
+    }
+    window.onload = function(){autoSize()}
+    window.onresize = function(){autoSize()}
 </script>
 </head>
 <body>
-    <div class="wrap">
-        <div class="cardList"></div>
+    <div class="app">
+        <div class="wrap">
+            <div class="cardList"></div>
+        </div>
     </div>
     <script>
         // 카드 51장 생성
@@ -33,14 +49,8 @@
         }
         // 카드 세로 크기 설정
         let cards = document.querySelectorAll('.card')
-        function cardSize(){
-            for(let i=0; i<cards.length; i++){
-                cards[i].style.height = (cards[i].offsetWidth * 1.25) + 'px'
-            }
-        }
-        cardSize()
-        window.onresize = function(){
-            cardSize()
+        for(let i=0; i<cards.length; i++){
+            cards[i].style.height = (cards[i].offsetWidth * 1.25) + 'px'
         }
         // 카드 초기 위치값 설정
         for(let i=0; i<cards.length; i++){
