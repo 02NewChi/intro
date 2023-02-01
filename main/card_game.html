@@ -60,26 +60,30 @@
         // 카드 회전
         let limitTop = document.querySelector('.wrap').offsetHeight
         let limitleft = document.querySelector('.wrap').offsetWidth
+        let firstClick = true // 재 클릭 방지
         for(let i=0; i<cards.length; i++){
             cards[i].onclick = function(){
-                for(let k=0; k<cards.length; k++){
-                    // 1단계 (회전)
-                    cards[k].style.pointerEvents = 'none' // 재 클릭 방지
-                    cards[k].style.animation = `cardRotation ${cards.length - k}s linear infinite`
-                    // 2단계 (퍼짐)
-                    setTimeout(function(){
-                        let shake = setInterval(function(){
-                            cards[k].style.top = Math.floor(Math.random() * limitTop) + 'px'
-                            cards[k].style.left = Math.floor(Math.random() * limitleft) + 'px'
-                        }, 1000)
+                if(firstClick){ // 재 클릭 방지
+                    for(let k=0; k<cards.length; k++){
+                        // 1단계 (회전)
+                        cards[k].style.pointerEvents = 'none' // 재 클릭 방지
+                        cards[k].style.animation = `cardRotation ${cards.length - k}s linear infinite`
+                        // 2단계 (퍼짐)
                         setTimeout(function(){
-                            clearInterval(shake)
-                            cards[k].style.top = `calc(50% + ${k*0.1}%)`
-                            cards[k].style.left = `calc(50% - ${k*0.1}%)`
-                            cards[k].style.animation = 'none'
-                            cards[k].style.pointerEvents = 'auto' // 재 클릭 방지
-                        }, 5000)
-                    }, 3000)
+                            let shake = setInterval(function(){
+                                cards[k].style.top = Math.floor(Math.random() * limitTop) + 'px'
+                                cards[k].style.left = Math.floor(Math.random() * limitleft) + 'px'
+                            }, 1000)
+                            setTimeout(function(){
+                                clearInterval(shake)
+                                cards[k].style.top = `calc(50% + ${k*0.1}%)`
+                                cards[k].style.left = `calc(50% - ${k*0.1}%)`
+                                cards[k].style.animation = 'none'
+                                cards[k].style.pointerEvents = 'auto' // 재 클릭 방지
+                            }, 5000)
+                        }, 3000)
+                    }
+                    firstClick = false // 재 클릭 방지
                 }
             }
         }
