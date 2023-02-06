@@ -5,17 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Card Game</title>
 <style>
-    *{margin:0; padding:0; box-sizing:border-box; transition-duration:1s}
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+    /* font-family:'Noto Sans KR', sans-serif */
+    *{margin:0; padding:0; box-sizing:border-box; transition-duration:1s; color:#333; font-size:16px; line-height:1.6em; font-weight:normal; letter-spacing:normal; font-family:'Noto Sans KR', sans-serif}
     /**/
     body{width:100%; height:100vh; overflow:hidden; background-color:#333}
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
     .wrap{position:relative; width:100%; height:100%; background-color:#999; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden; transition-duration:0.5s}
     .cardList{position:absolute; top:0; left:0; width:100%; height:100%}
     .cardList .card{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:15%; background-color:#666; border:5px solid #333; border-radius:15px}
-    .cardList .card p{display:none}
+    .cardList .card p{display:none; position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; text-align:center; font-size:100px; font-weight:700}
+    .cardList .card.co01{top:25% !important; left:25% !important}
+    .cardList .card.co02{top:25% !important; left:75% !important}
+    .cardList .card.pe01{top:75% !important; left:25% !important}
+    .cardList .card.pe02{top:75% !important; left:75% !important}
+    .cardList .card.onCard{background-color:#CCC; border:5px solid #666}
+    .cardList .card.onCard p{display:block}
     @keyframes cardRotation{
         100%{transform:translate(-50%, -50%) rotate(360deg)}
     }
+    .choice{opacity:0; position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1}
+    .choice.open{opacity:1; z-index:1}
+    .choice .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:#000; opacity:0.5}
+    .choice .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:1300px; height:800px; background-color:#CCC; border-radius:30px; padding:40px}
+    .choice .con .title{text-align:center; font-size:40px; font-weight:500}
+    .coinList{position:relative; width:100%; display:flex; flex-wrap:wrap; margin-top:40px}
+    .coinList div{width:32%; height:100px; margin-right:2%; margin-bottom:2%; background-color:#666; text-align:center; border-radius:20px; color:#CCC; font-size:30px; line-height:100px; cursor:pointer; transition-duration:0.3s}
+    .coinList div:nth-child(3n){margin-right:0}
+    .choiceBtn{display:table; margin:15px auto 0 auto; width:auto; padding:15px 150px; background-color:#666; color:#CCC; border-radius:100px; font-size:40px; cursor:pointer}
+    .coinList div.active{background-color:#333; color:#FFF}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -37,6 +55,14 @@
     <div class="app">
         <div class="wrap">
             <div class="cardList"></div>
+            <div class="choice">
+                <div class="back"></div>
+                <div class="con">
+                    <p class="title">배팅 금액을 선택하세요</p>
+                    <div class="coinList"></div>
+                    <p class="choiceBtn">선택</p>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -77,29 +103,80 @@
                             }, 1000)
                             setTimeout(function(){
                                 clearInterval(shake)
-                                cards[k].style.top = `calc(50% + ${k*0.1}%)`
-                                cards[k].style.left = `calc(50% - ${k*0.1}%)`
+                                cards[k].style.top = 'calc(50%)'
+                                cards[k].style.left = 'calc(50%)'
                                 cards[k].style.animation = 'none'
                                 cards[k].style.pointerEvents = 'auto' // 재 클릭 방지
                             }, 5000)
                         }, 3000)
                     }
+                    // 카드 분배
+                    setTimeout(function(){
+                        giveCard()
+                    }, 10000)
                     firstClick = false // 재 클릭 방지
                 }
             }
         }
-        // 컴 숫자, 유저 숫저 세팅
-        let num = []
-        let co = []
-        let pe = []
-        for(let i=0; i<4; i++){
-            num.push(Math.floor(Math.random() * cards.length))
+        // 배팅 금액 설정
+        let choice = document.querySelector('.choice')
+        let coinList = document.querySelector('.coinList')
+        let choiceBtn = document.querySelector('.choiceBtn')
+        for(let i=10; i<=120; i+=10){
+            coinList.innerHTML += `<div>$ ${i}</div>`
         }
-        co.push(num[0])
-        co.push(num[1])
-        pe.push(num[2])
-        pe.push(num[3])
-        console.log(num, co, pe)
+        let coinListDiv = document.querySelectorAll('.coinList div')
+        for(let i=0; i<coinListDiv.length; i++){
+            coinListDiv[i].onclick = function(){
+                for(let i=0; i<coinListDiv.length; i++){
+                    coinListDiv[i].classList.remove('active')
+                }
+                this.classList.add('active')
+            }
+        }
+        choiceBtn.onclick = function(){
+            choice.classList.remove('open')
+        }
+        // 컴 숫자, 유저 숫저 세팅 / 카드 분배
+        function giveCard(){
+            let all = []
+            let num = []
+            let co = []
+            let pe = []
+            for(let i=0; i<50; i++){
+                all.push(i+1)
+            }
+            for(let i=0; i<4; i++){
+                let what = Math.floor(Math.random() * all.length)
+                num.push(all[what])
+                all.splice(what, 1)
+            }
+            co.push(num[0])
+            co.push(num[1])
+            pe.push(num[2])
+            pe.push(num[3])
+            console.log(all, num, co, pe)
+            for(let i=0; i<co.length; i++){
+                cards[co[i]].classList.add('coCard')
+            }
+            for(let i=0; i<pe.length; i++){
+                cards[pe[i]].classList.add('peCard')
+            }
+            cards[co[0]].classList.add('co01')
+            cards[co[1]].classList.add('co02')
+            cards[pe[0]].classList.add('pe01')
+            cards[pe[1]].classList.add('pe02')
+            // 내 카드 확인하기
+            let peCard = document.querySelectorAll('.peCard')
+            setTimeout(function(){
+                for(let i=0; i<peCard.length; i++){
+                    peCard[i].classList.add('onCard')
+                }
+            }, 1000)
+            setTimeout(function(){
+                choice.classList.add('open')
+            }, 5000)
+        }
     </script>
 </body>
 </html>
