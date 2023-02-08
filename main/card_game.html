@@ -21,6 +21,7 @@
     .cardList .card.pe02{top:70% !important; left:70% !important}
     .cardList .card.onCard{background-color:#CCC; border:5px solid #666}
     .cardList .card.onCard p{display:block}
+    .cardList .card.ani{width:20%}
     @keyframes cardRotation{
         100%{transform:translate(-50%, -50%) rotate(360deg)}
     }
@@ -161,6 +162,7 @@
             coinList.innerHTML += `<div>$ ${i}</div>`
         }
         let coinListDiv = document.querySelectorAll('.coinList div')
+        coinListDiv[0].classList.add('active')
         for(let i=0; i<coinListDiv.length; i++){
             coinListDiv[i].onclick = function(){
                 for(let i=0; i<coinListDiv.length; i++){
@@ -169,8 +171,32 @@
                 this.classList.add('active')
             }
         }
+        // 대결 & 결과
         choiceBtn.onclick = function(){
+            // 팝업 닫기
             choice.classList.remove('open')
+            // 컴퓨터 카드 흔들림 효과 후 컴퓨터 카드 보여주기
+            let coCards = document.querySelectorAll('.coCard')
+            let coCardBoolean = true
+            for(let i=0; i<coCards.length; i++){
+                setInterval(function(){
+                    if(coCardBoolean){
+                        coCards[i].classList.add('ani')
+                    }
+                },500)
+                setTimeout(function(){
+                    setInterval(function(){
+                        if(coCardBoolean){
+                            coCards[i].classList.remove('ani')
+                        }
+                    },500)
+                }, 250)
+                setTimeout(function(){
+                    coCards[i].classList.remove('ani')
+                    coCards[i].classList.add('onCard')
+                    coCardBoolean = false
+                }, 3000)
+            }
         }
         // 컴 숫자, 유저 숫저 세팅 / 카드 분배
         function giveCard(){
