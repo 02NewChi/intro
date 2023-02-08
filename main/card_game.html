@@ -15,22 +15,24 @@
     .cardList{position:absolute; top:0; left:0; width:100%; height:100%}
     .cardList .card{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:15%; background-color:#666; border:5px solid #333; border-radius:15px}
     .cardList .card p{display:none; position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; text-align:center; font-size:100px; font-weight:700}
-    .cardList .card.co01{top:25% !important; left:25% !important}
-    .cardList .card.co02{top:25% !important; left:75% !important}
-    .cardList .card.pe01{top:75% !important; left:25% !important}
-    .cardList .card.pe02{top:75% !important; left:75% !important}
+    .cardList .card.co01{top:30% !important; left:30% !important}
+    .cardList .card.co02{top:30% !important; left:70% !important}
+    .cardList .card.pe01{top:70% !important; left:30% !important}
+    .cardList .card.pe02{top:70% !important; left:70% !important}
     .cardList .card.onCard{background-color:#CCC; border:5px solid #666}
     .cardList .card.onCard p{display:block}
     @keyframes cardRotation{
         100%{transform:translate(-50%, -50%) rotate(360deg)}
     }
     /**/
-    .playerBox{position:absolute}
-    .playerCo{top:50px; left:50px}
-    .playerPe{bottom:50px; right:50px; text-align:right}
-    .playerBox img{display:block}
-    .playerBox .title{margin-top:10px; font-size:30px}
-    .playerBox .money{margin-top:10px; font-size:40px; font-weight:500}
+    .playerBox{position:absolute; text-align:center}
+    .playerCo{top:-500px; left:-500px}
+    .playerPe{bottom:-500px; right:-500px}
+    .playerCo.on{top:50px; left:50px}
+    .playerPe.on{bottom:50px; right:50px}
+    .playerBox img{display:block; margin:0 auto}
+    .playerBox .title{margin-top:10px; font-size:40px; font-weight:500}
+    .playerBox .money{margin-top:10px; padding:5px 50px; background-color:#333; border-radius:100px; color:#CCC; font-size:30px; font-weight:500}
     /**/
     .choice{opacity:0; position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1}
     .choice.open{opacity:1; z-index:1}
@@ -42,6 +44,9 @@
     .coinList div:nth-child(3n){margin-right:0}
     .choiceBtn{display:table; margin:15px auto 0 auto; width:auto; padding:15px 150px; background-color:#666; color:#CCC; border-radius:100px; font-size:40px; cursor:pointer}
     .coinList div.active{background-color:#333; color:#FFF}
+    /**/
+    .count{display:none; text-align:center; font-size:100px}
+    .count.on{display:block}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -84,6 +89,8 @@
                     <p class="choiceBtn">선택</p>
                 </div>
             </div>
+            <!---->
+            <p class="count">3</p>
         </div>
     </div>
     <script>
@@ -131,12 +138,19 @@
                             }, 5000)
                         }, 3000)
                     }
-                    // 카드 분배
                     setTimeout(function(){
-                        giveCard()
+                        giveCard() // 카드 분배
+                        userCome() // 유저 나타남
                     }, 10000)
                     firstClick = false // 재 클릭 방지
                 }
+            }
+        }
+        // 유저 나타남
+        function userCome(){
+            let playerBox = document.querySelectorAll('.playerBox')
+            for(let i=0; i<playerBox.length; i++){
+                playerBox[i].classList.add('on')
             }
         }
         // 배팅 금액 설정
@@ -187,14 +201,29 @@
             cards[co[1]].classList.add('co02')
             cards[pe[0]].classList.add('pe01')
             cards[pe[1]].classList.add('pe02')
-            // 내 카드 확인하기
+            // 내 카드 확인하기 & 카운트 다운
             let peCard = document.querySelectorAll('.peCard')
+            let count = document.querySelector('.count')
+            let countBoolean = true
             setTimeout(function(){
                 for(let i=0; i<peCard.length; i++){
                     peCard[i].classList.add('onCard')
                 }
+                // 카운트 다운
+                count.classList.add('on')
+                function disCount(){
+                    count.innerHTML = Number(count.innerHTML) - 1
+                }
+                setInterval(function(){
+                    if(countBoolean){
+                        disCount()
+                    }
+                }, 1000)
             }, 1000)
             setTimeout(function(){
+                count.classList.remove('on')
+                countBoolean = false
+                count.innerHTML = 3
                 choice.classList.add('open')
             }, 5000)
         }
