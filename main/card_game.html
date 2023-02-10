@@ -49,11 +49,16 @@
     .count{display:none; text-align:center; font-size:100px; font-size:500}
     .count.on{display:block}
     /**/
-    .result{position:absolute; top:0; left:0; width:100%; height:100%}
+    .result{position:absolute; top:-1000px; left:0; width:100%; height:100%}
+    .result.on{top:0}
     .result .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
     .result .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:1300px; height:800px; background-color:#CCC; border-radius:30px; padding:50px 100px}
-    .result .con p{font-size:40px}
+    .result .con p{margin-bottom:20px; font-size:50px; font-weight:500}
+    .result .con p span{font-size:60px; color:#d25400; font-weight:700}
     .result .con .p00{font-size:70px; font-weight:700}
+    .result .con .p05{display:table; width:auto; margin:40px auto 0 auto; padding:10px 100px; background-color:#d25400; color:#FFF; border-radius:100px; cursor:pointer}
+    .result .con .p05:hover{background-color:#ff6600}
+    .result .con img{display:block; position:absolute; top:30px; right:30px}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -106,8 +111,9 @@
                     <p class="p01">Computer 10 + 10 = <span>20</span></p>
                     <p class="p02">player 50 + 50 = <span>100</span></p>
                     <p class="p03">축하합니다. 승자는 Player입니다.</p>
-                    <p class="p04">배팅 금액은 1000 $ 입니다.</p>
-                    <p class="p05">확인</p>
+                    <p class="p04">배팅 금액은 1000$입니다.</p>
+                    <p class="p05 checkBtn">확인</p>
+                    <img src="" alt="" class="winnerImg">
                 </div>
             </div>
         </div>
@@ -248,7 +254,9 @@
                 // 선택 금액 / 컴퓨터 숫자합 / 유저 숫자합 확인
                 let coinListDivActive = document.querySelector('.coinList div.active').innerHTML
                 let activeMoney = parseInt(coinListDivActive)
+                let result = document.querySelector('.result')
                 let resultTexts = document.querySelectorAll('.result p')
+                let winnerImg = document.querySelector('.winnerImg')
                 console.log(activeMoney) // 선택 금액
                 let coSum = Number(num[0] + num[1])
                 let peSum = Number(num[2] + num[3])
@@ -286,15 +294,34 @@
                     }else if(coSum < peSum){
                         winner = 'Player'
                     }else if(coSum === peSum){
-                        winner = '무승부'
+                        winner = 'Same'
                     }
                     resultTexts[1].innerHTML = `Computer ${num[0]} + ${num[1]} = <span>${coSum}</span>`
                     resultTexts[2].innerHTML = `player ${num[2]} + ${num[3]} = <span>${peSum}</span>`
                     resultTexts[3].innerHTML = `축하합니다. 승자는 <span>${winner}</span>입니다.`
-                    resultTexts[4].innerHTML = `배팅 금액은 ${activeMoney} $ 입니다.`
+                    resultTexts[4].innerHTML = `배팅 금액은 <span>${activeMoney}$</span> 입니다.`
+                    result.classList.add('on')
+                    // 승자 아이콘 출력
+                    if(winner === 'Computer'){
+                        winnerImg.setAttribute('src', 'img/co.png')
+                    }else if(winner === 'Player'){
+                        winnerImg.setAttribute('src', 'img/pe.png')
+                    }else if(winner === 'Same'){
+                        winnerImg.setAttribute('src', 'img/same.png')
+                    }
                 }, 5000)
             }
         }
+        // 돈 분배 및 다시 시작 or 게임 종료
+        function reGame(){
+            let checkBtn = document.querySelector('.checkBtn')
+            let result = document.querySelector('.result')
+            checkBtn.onclick = function(){
+                result.classList.remove('on')
+                // ★★★★ 여기 부터 작업하라 ★★★★
+            }
+        }
+        reGame()
     </script>
 </body>
 </html>
