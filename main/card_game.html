@@ -31,9 +31,21 @@
     .playerPe{bottom:-500px; right:-500px}
     .playerCo.on{top:50px; left:50px}
     .playerPe.on{bottom:50px; right:50px}
-    .playerBox img{display:block; margin:0 auto}
+    .playerBox .icon{display:block; margin:0 auto}
     .playerBox .title{margin-top:10px; font-size:40px; font-weight:500}
     .playerBox .money{margin-top:10px; padding:5px 50px; background-color:#333; border-radius:100px; color:#CCC; font-size:30px; font-weight:500}
+    .playerBox .icon.winActive{animation:winAni 3s linear infinite}
+    .playerBox .icon.loseActive{animation:loseAni 3s linear infinite}
+    @keyframes winAni{
+        0%{width:200px}
+        50%{width:350px; transform:rotate(360deg)}
+        100%{width:200px}
+    }
+    @keyframes loseAni{
+        0% {width:200px}
+        50%{width:50px; transform:rotate(-360deg)}
+        100%{width:200px}
+    }
     /**/
     .choice{opacity:0; position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1}
     .choice.open{opacity:1; z-index:1}
@@ -83,14 +95,14 @@
             <div class="cardList"></div>
             <!---->
             <div class="playerBox playerCo">
-                <img src="https://placehold.it/200x200" alt="">
+                <img src="https://placehold.it/200x200" alt="" class="icon">
                 <p class="title">Computer</p>
-                <p class="money">$ 2000000</p>
+                <p class="money">1200 $</p>
             </div>
             <div class="playerBox playerPe">
-                <img src="https://placehold.it/200x200" alt="">
+                <img src="https://placehold.it/200x200" alt="" class="icon">
                 <p class="title">Player</p>
-                <p class="money">$ 2000000</p>
+                <p class="money">1200 $</p>
             </div>
             <!---->
             <div class="choice">
@@ -108,10 +120,10 @@
                 <div class="back"></div>
                 <div class="con">
                     <p class="p00">결과</p>
-                    <p class="p01">Computer 10 + 10 = <span>20</span></p>
-                    <p class="p02">player 50 + 50 = <span>100</span></p>
-                    <p class="p03">축하합니다. 승자는 Player입니다.</p>
-                    <p class="p04">배팅 금액은 1000$입니다.</p>
+                    <p class="p01"></p>
+                    <p class="p02"></p>
+                    <p class="p03"></p>
+                    <p class="p04"></p>
                     <p class="p05 checkBtn">확인</p>
                     <img src="" alt="" class="winnerImg">
                 </div>
@@ -182,7 +194,7 @@
         let choice = document.querySelector('.choice')
         let coinList = document.querySelector('.coinList')
         let choiceBtn = document.querySelector('.choiceBtn')
-        for(let i=10; i<=120; i+=10){
+        for(let i=600; i>=50; i-=50){
             coinList.innerHTML += `<div>${i} $</div>`
         }
         let coinListDiv = document.querySelectorAll('.coinList div')
@@ -227,6 +239,7 @@
             // 내 카드 확인하기 & 카운트 다운
             let peCard = document.querySelectorAll('.peCard')
             let count = document.querySelector('.count')
+            let result = document.querySelector('.result')
             let countBoolean = true
             setTimeout(function(){
                 for(let i=0; i<peCard.length; i++){
@@ -254,7 +267,6 @@
                 // 선택 금액 / 컴퓨터 숫자합 / 유저 숫자합 확인
                 let coinListDivActive = document.querySelector('.coinList div.active').innerHTML
                 let activeMoney = parseInt(coinListDivActive)
-                let result = document.querySelector('.result')
                 let resultTexts = document.querySelectorAll('.result p')
                 let winnerImg = document.querySelector('.winnerImg')
                 console.log(activeMoney) // 선택 금액
@@ -287,18 +299,18 @@
                     }, 3000)
                 }
                 // 결과팝업 / 돈 (+) or (-)
+                let winner
+                if(coSum > peSum){
+                    winner = 'Computer'
+                }else if(coSum < peSum){
+                    winner = 'Player'
+                }else if(coSum === peSum){
+                    winner = 'Same'
+                }
                 setTimeout(function(){
-                    let winner
-                    if(coSum > peSum){
-                        winner = 'Computer'
-                    }else if(coSum < peSum){
-                        winner = 'Player'
-                    }else if(coSum === peSum){
-                        winner = 'Same'
-                    }
                     resultTexts[1].innerHTML = `Computer ${num[0]} + ${num[1]} = <span>${coSum}</span>`
                     resultTexts[2].innerHTML = `player ${num[2]} + ${num[3]} = <span>${peSum}</span>`
-                    resultTexts[3].innerHTML = `축하합니다. 승자는 <span>${winner}</span>입니다.`
+                    resultTexts[3].innerHTML = `축하합니다. 승자는 <span>${winner}</span> 입니다.`
                     resultTexts[4].innerHTML = `배팅 금액은 <span>${activeMoney}$</span> 입니다.`
                     result.classList.add('on')
                     // 승자 아이콘 출력
@@ -310,18 +322,62 @@
                         winnerImg.setAttribute('src', 'img/same.png')
                     }
                 }, 5000)
+                // 돈 분배 및 다시 시작 or 게임 종료
+                let checkBtn = document.querySelector('.checkBtn') // 확인 버튼
+                let coMoney = document.querySelector('.playerCo .money') // 컴퓨터 돈
+                let peMoney = document.querySelector('.playerPe .money') // 유저 돈
+                let coIcon = document.querySelector('.playerCo .icon') // 컴퓨터 이미지
+                let peIcon = document.querySelector('.playerPe .icon') // 컴퓨터 이미지
+                checkBtn.onclick = function(){
+                    result.classList.remove('on')
+                    // 돈 분매 및 애니메이션
+                    if(winner === 'Computer'){
+                        coMoney.innerHTML = parseInt(coMoney.innerHTML) + Number(activeMoney) + ' $'
+                        peMoney.innerHTML = parseInt(peMoney.innerHTML) - Number(activeMoney) + ' $'
+                        coIcon.classList.add('winActive')
+                        peIcon.classList.add('loseActive')
+                        setTimeout(function(){
+                            coIcon.classList.remove('winActive')
+                            peIcon.classList.remove('loseActive')
+                        }, 3000)
+                        // 금액 -되면 게임 종료
+                        if(parseInt(peMoney.innerHTML) <= 0){
+                            alert('게임 끝') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
+                        }
+                    }else if(winner === 'Player'){
+                        peMoney.innerHTML = parseInt(peMoney.innerHTML) + Number(activeMoney) + ' $'
+                        coMoney.innerHTML = parseInt(coMoney.innerHTML) - Number(activeMoney) + ' $'
+                        peIcon.classList.add('winActive')
+                        coIcon.classList.add('loseActive')
+                        setTimeout(function(){
+                            peIcon.classList.remove('winActive')
+                            coIcon.classList.remove('loseActive')
+                        }, 3000)
+                        if(parseInt(coMoney.innerHTML) <= 0){
+                            alert('게임 끝') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
+                        }
+                    }else if(coSum === peSum){
+                        alert('무승부') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
+                    }
+                    // 카드 재분배
+                    setTimeout(function(){
+                        for(let i=0; i<cards.length; i++){
+                            cards[i].classList.remove('coCard')
+                            cards[i].classList.remove('peCard')
+                            cards[i].classList.remove('onCard')
+                            cards[i].classList.remove('co01')
+                            cards[i].classList.remove('co02')
+                            cards[i].classList.remove('pe01')
+                            cards[i].classList.remove('pe02')
+                        }
+                        // 다시 시작
+                        setTimeout(function(){
+                            giveCard()
+                        }, 1000)
+                    }, 3000)
+                }
             }
         }
-        // 돈 분배 및 다시 시작 or 게임 종료
-        function reGame(){
-            let checkBtn = document.querySelector('.checkBtn')
-            let result = document.querySelector('.result')
-            checkBtn.onclick = function(){
-                result.classList.remove('on')
-                // ★★★★ 여기 부터 작업하라 ★★★★
-            }
-        }
-        reGame()
     </script>
 </body>
 </html>
