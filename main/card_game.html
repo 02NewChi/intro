@@ -47,8 +47,8 @@
         100%{width:200px}
     }
     /**/
-    .choice{opacity:0; position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1}
-    .choice.open{opacity:1; z-index:1}
+    .choice{position:absolute; top:0; left:-2000px; width:100%; height:100%}
+    .choice.open{left:0}
     .choice .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
     .choice .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:1300px; height:800px; background-color:#CCC; border-radius:30px; padding:40px}
     .choice .con .title{text-align:center; font-size:40px; font-weight:500}
@@ -71,6 +71,17 @@
     .result .con .p05{display:table; width:auto; margin:40px auto 0 auto; padding:10px 100px; background-color:#d25400; color:#FFF; border-radius:100px; cursor:pointer}
     .result .con .p05:hover{background-color:#ff6600}
     .result .con img{display:block; position:absolute; top:30px; right:30px}
+    /**/
+    .endPopup{position:absolute; bottom:-1000px; left:0; width:100%; height:100%; background-color:#999; border:15px solid #333; border-radius:40px}
+    .endPopup .title{position:absolute; top:-1500px; left:0; width:100%; text-align:center; font-size:200px; font-weight:700}
+    .endPopup .btn{display:table; position:absolute; bottom:200px; width:auto; padding:5px 100px; background-color:#333; color:#CCC; font-size:100px; border-radius:200px; cursor:pointer}
+    .endPopup .btn:hover{background-color:#d25400; color:#FFF}
+    .endPopup .replay{left:-1000px}
+    .endPopup .close{right:-1000px}
+    .endPopup.on{bottom:0}
+    .endPopup .title.on{top:100px}
+    .endPopup .replay.on{left:300px}
+    .endPopup .close.on{right:300px}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -127,6 +138,12 @@
                     <p class="p05 checkBtn">확인</p>
                     <img src="" alt="" class="winnerImg">
                 </div>
+            </div>
+            <!---->
+            <div class="endPopup">
+                <p class="title">Message</p>
+                <p class="btn replay">Replay</p>
+                <p class="btn close">Close</p>
             </div>
         </div>
     </div>
@@ -342,7 +359,7 @@
                         }, 3000)
                         // 금액 -되면 게임 종료
                         if(parseInt(peMoney.innerHTML) <= 0){
-                            alert('게임 끝') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
+                            endFn('You Lose..')
                         }
                     }else if(winner === 'Player'){
                         peMoney.innerHTML = parseInt(peMoney.innerHTML) + Number(activeMoney) + ' $'
@@ -354,7 +371,7 @@
                             coIcon.classList.remove('loseActive')
                         }, 3000)
                         if(parseInt(coMoney.innerHTML) <= 0){
-                            alert('게임 끝') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
+                            endFn('You Win!')
                         }
                     }else if(coSum === peSum){
                         alert('무승부') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
@@ -377,6 +394,28 @@
                     }, 3000)
                 }
             }
+        }
+        // end
+        function endFn(name){
+            let endPopup = document.querySelector('.endPopup')
+            let endTitle = document.querySelector('.endPopup .title')
+            let endReplay = document.querySelector('.endPopup .replay')
+            let endClose = document.querySelector('.endPopup .close')
+            endTitle.innerHTML = name // 승자의 이름
+            setTimeout(function(){
+                endPopup.classList.add('on')
+                setTimeout(function(){
+                    endTitle.classList.add('on')
+                    endReplay.classList.add('on')
+                    endClose.classList.add('on')
+                }, 1000)
+            }, 3000)
+            endReplay.addEventListener('click', () => {
+                location.reload()
+            })
+            endClose.addEventListener('click', () => {
+                window.close()
+            })
         }
     </script>
 </body>
