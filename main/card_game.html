@@ -12,6 +12,18 @@
     body{width:100%; height:100vh; overflow:hidden; background-color:#333}
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
     .wrap{position:relative; width:100%; height:100%; background-color:#999; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden; transition-duration:0.5s}
+    /**/
+    .intro{position:absolute; top:0; left:0; width:100%; height:100%; z-index:1}
+    .intro.on{left:2000px}
+    .intro .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:40px}
+    .intro .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:1300px; height:800px; background-color:#CCC; border-radius:30px; padding:50px 100px}
+    .intro .con .title{margin-bottom:20px; text-align:center; font-size:80px; font-weight:700}
+    .intro .con .txt{font-size:30px}
+    .intro .con .txt span{font-size:30px; font-weight:700}
+    .intro .con .txt span.color{color:#d25400}
+    .intro .con .btn{display:table; position:relative; margin:30px auto 0 auto; padding:10px 100px; width:auto; background-color:#ff6600; border-radius:100px; cursor:pointer; color:#FFF; font-size:50px}
+    .intro .con .btn:hover{background-color:#d25400}
+    /**/
     .cardList{position:absolute; top:0; left:0; width:100%; height:100%}
     .cardList .card{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:15%; background-color:#666; border:5px solid #333; border-radius:15px}
     .cardList .card p{display:none; position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; text-align:center; font-size:100px; font-weight:700}
@@ -49,7 +61,7 @@
     /**/
     .choice{position:absolute; top:0; left:-2000px; width:100%; height:100%}
     .choice.open{left:0}
-    .choice .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+    .choice .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:40px}
     .choice .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:1300px; height:800px; background-color:#CCC; border-radius:30px; padding:40px}
     .choice .con .title{text-align:center; font-size:40px; font-weight:500}
     .coinList{position:relative; width:100%; display:flex; flex-wrap:wrap; margin-top:40px}
@@ -63,7 +75,7 @@
     /**/
     .result{position:absolute; top:-1000px; left:0; width:100%; height:100%}
     .result.on{top:0}
-    .result .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+    .result .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:40px}
     .result .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:1300px; height:800px; background-color:#CCC; border-radius:30px; padding:50px 100px}
     .result .con p{margin-bottom:20px; font-size:50px; font-weight:500}
     .result .con p span{font-size:60px; color:#d25400; font-weight:700}
@@ -103,6 +115,25 @@
     <div class="app">
         <div class="wrap">
             <!---->
+            <div class="intro">
+                <div class="back"></div>
+                <div class="con">
+                    <p class="title">Card Plus Game</p>
+                    <p class="txt">
+                        안녕하세요 <span>Card Plus Game</span>입니다.<br>
+                        유저와 컴퓨터는 <span>각각 두 장의 카드</span>를 받고<br>
+                        카드의 <span>합이 더 큰 경우</span> 베팅 금액을 가져가는 게임입니다.<br>
+                        <br>
+                        <span class="color">1.</span>&nbsp; <span>가운데 카드를 클릭</span>해 주시면 카드가 섞입니다.<br>
+                        <span class="color">2.</span>&nbsp; 자신의 카드 두 장을 확인하고 그 <span>합을 3초 동안 생각</span>합니다.<br>
+                        <span class="color">3.</span>&nbsp; 이길 가능성을 생각해 <span>베팅 금액을 선택</span>합니다.<br>
+                        <span class="color">4.</span>&nbsp; <span>확인 버튼</span>을 누른 후 결과를 기다립니다.<br>
+                        <span class="color">5.</span>&nbsp; 둘 중 하나의 금액이 <span>0 또는 -</span> 가 될 때까지 반복합니다.
+                    </p>
+                    <p class="btn">Start</p>
+                </div>
+            </div>
+            <!---->
             <div class="cardList"></div>
             <!---->
             <div class="playerBox playerCo">
@@ -119,7 +150,7 @@
             <div class="choice">
                 <div class="back"></div>
                 <div class="con">
-                    <p class="title">배팅 금액을 선택하세요</p>
+                    <p class="title">베팅 금액을 선택하세요</p>
                     <div class="coinList"></div>
                     <p class="choiceBtn">선택</p>
                 </div>
@@ -148,6 +179,15 @@
         </div>
     </div>
     <script>
+        // 인트로
+        function introScene(){
+            let intro = document.querySelector('.intro')
+            let introBtn = document.querySelector('.intro .btn')
+            introBtn.onclick = function(){
+                intro.classList.add('on')
+            }
+        }
+        introScene()
         // 카드 51장 생성
         let cardList = document.querySelector('.cardList')
         for(let i=0; i<51; i++){
@@ -207,7 +247,7 @@
                 playerBox[i].classList.add('on')
             }
         }
-        // 배팅 금액 설정
+        // 베팅 금액 설정
         let choice = document.querySelector('.choice')
         let coinList = document.querySelector('.coinList')
         let choiceBtn = document.querySelector('.choiceBtn')
@@ -328,7 +368,7 @@
                     resultTexts[1].innerHTML = `Computer ${num[0]} + ${num[1]} = <span>${coSum}</span>`
                     resultTexts[2].innerHTML = `player ${num[2]} + ${num[3]} = <span>${peSum}</span>`
                     resultTexts[3].innerHTML = `축하합니다. 승자는 <span>${winner}</span> 입니다.`
-                    resultTexts[4].innerHTML = `배팅 금액은 <span>${activeMoney}$</span> 입니다.`
+                    resultTexts[4].innerHTML = `베팅 금액은 <span>${activeMoney}$</span> 입니다.`
                     result.classList.add('on')
                     // 승자 아이콘 출력
                     if(winner === 'Computer'){
