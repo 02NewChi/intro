@@ -21,8 +21,8 @@
     .intro .con .txt{font-size:30px}
     .intro .con .txt span{font-size:30px; font-weight:700}
     .intro .con .txt span.color{color:#d25400}
-    .intro .con .btn{display:table; position:relative; margin:30px auto 0 auto; padding:10px 100px; width:auto; background-color:#ff6600; border-radius:100px; cursor:pointer; color:#FFF; font-size:50px}
-    .intro .con .btn:hover{background-color:#d25400}
+    .intro .con .btn{display:table; position:relative; margin:30px auto 0 auto; padding:10px 100px; width:auto; background-color:#d25400; border-radius:100px; cursor:pointer; color:#FFF; font-size:50px}
+    .intro .con .btn:hover{background-color:#ff6600}
     /**/
     .cardList{position:absolute; top:0; left:0; width:100%; height:100%}
     .cardList .card{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:15%; background-color:#666; border:5px solid #333; border-radius:15px}
@@ -449,7 +449,7 @@
                     endReplay.classList.add('on')
                     endClose.classList.add('on')
                 }, 1000)
-            }, 3000)
+            }, 4000)
             endReplay.addEventListener('click', () => {
                 location.reload()
             })
