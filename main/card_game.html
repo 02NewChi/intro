@@ -192,7 +192,7 @@
         let cardList = document.querySelector('.cardList')
         for(let i=0; i<51; i++){
             cardList.innerHTML += `
-                <div class="card card${i}"><p>${i}</p></div>
+                <div class="card card${i}"></div>
             `
         }
         // 카드 세로 크기 설정
@@ -266,12 +266,13 @@
         }
         // 컴 숫자, 유저 숫저 세팅 / 카드 분배
         function giveCard(){
+            // 물리 카드
             let all = []
             let num = []
             let co = []
             let pe = []
-            for(let i=0; i<50; i++){
-                all.push(i+1)
+            for(let i=0; i<=50; i++){
+                all.push(i)
             }
             for(let i=0; i<4; i++){
                 let what = Math.floor(Math.random() * all.length)
@@ -282,18 +283,45 @@
             co.push(num[1])
             pe.push(num[2])
             pe.push(num[3])
-            console.log(all, num, co, pe)
-            for(let i=0; i<co.length; i++){
-                cards[co[i]].classList.add('coCard')
+            console.log('물리 카드 : ' + all, num, co, pe)
+            // 가상 카드 (실제 카드 번호)
+            let realNum = []
+            let realCard = []
+            let realCo = []
+            let realPe = []
+            for(let i=0; i<51; i++){
+                realNum.push(i)
             }
-            for(let i=0; i<pe.length; i++){
+            for(let i=0; i<4; i++){
+                let what = Math.floor(Math.random() * realNum.length)
+                realCard.push(realNum[what])
+                realNum.splice(what, 1)
+            }
+            realCo.push(realCard[0])
+            realCo.push(realCard[1])
+            realPe.push(realCard[2])
+            realPe.push(realCard[3])
+            console.log('가상 카드 : ' + realNum, realCard, realCo, realPe)
+            // 카드에 class 추가
+            for(let i=0; i<2; i++){
+                cards[co[i]].classList.add('coCard')
                 cards[pe[i]].classList.add('peCard')
             }
             cards[co[0]].classList.add('co01')
             cards[co[1]].classList.add('co02')
             cards[pe[0]].classList.add('pe01')
             cards[pe[1]].classList.add('pe02')
+            // 물리카드 + 가상카드
+            let co01 = document.querySelector('.co01')
+            let co02 = document.querySelector('.co02')
+            let pe01 = document.querySelector('.pe01')
+            let pe02 = document.querySelector('.pe02')
+            co01.innerHTML = `<p>${realCo[0]}</p>`
+            co02.innerHTML = `<p>${realCo[1]}</p>`
+            pe01.innerHTML = `<p>${realPe[0]}</p>`
+            pe02.innerHTML = `<p>${realPe[1]}</p>`
             // 내 카드 확인하기 & 카운트 다운
+            let coCard = document.querySelectorAll('.coCard')
             let peCard = document.querySelectorAll('.peCard')
             let count = document.querySelector('.count')
             let result = document.querySelector('.result')
@@ -327,31 +355,30 @@
                 let resultTexts = document.querySelectorAll('.result p')
                 let winnerImg = document.querySelector('.winnerImg')
                 console.log(activeMoney) // 선택 금액
-                let coSum = Number(num[0] + num[1])
-                let peSum = Number(num[2] + num[3])
+                let coSum = Number(realCard[0] + realCard[1])
+                let peSum = Number(realCard[2] + realCard[3])
                 console.log('co 합 : ' + coSum) // co 합
                 console.log('pe 합 : ' + peSum) // pe 합
                 // 팝업 닫기
                 choice.classList.remove('open')
                 // 컴퓨터 카드 흔들림 효과 후 컴퓨터 카드 보여주기
-                let coCards = document.querySelectorAll('.coCard')
                 let coCardBoolean = true
-                for(let i=0; i<coCards.length; i++){
+                for(let i=0; i<coCard.length; i++){
                     setInterval(function(){
                         if(coCardBoolean){
-                            coCards[i].classList.add('ani')
+                            coCard[i].classList.add('ani')
                         }
                     },500)
                     setTimeout(function(){
                         setInterval(function(){
                             if(coCardBoolean){
-                                coCards[i].classList.remove('ani')
+                                coCard[i].classList.remove('ani')
                             }
                         },500)
                     }, 250)
                     setTimeout(function(){
-                        coCards[i].classList.remove('ani')
-                        coCards[i].classList.add('onCard')
+                        coCard[i].classList.remove('ani')
+                        coCard[i].classList.add('onCard')
                         coCardBoolean = false
                     }, 3000)
                 }
@@ -365,8 +392,8 @@
                     winner = 'Same'
                 }
                 setTimeout(function(){
-                    resultTexts[1].innerHTML = `Computer ${num[0]} + ${num[1]} = <span>${coSum}</span>`
-                    resultTexts[2].innerHTML = `player ${num[2]} + ${num[3]} = <span>${peSum}</span>`
+                    resultTexts[1].innerHTML = `Computer ${realCard[0]} + ${realCard[1]} = <span>${coSum}</span>`
+                    resultTexts[2].innerHTML = `player ${realCard[2]} + ${realCard[3]} = <span>${peSum}</span>`
                     resultTexts[3].innerHTML = `축하합니다. 승자는 <span>${winner}</span> 입니다.`
                     resultTexts[4].innerHTML = `베팅 금액은 <span>${activeMoney}$</span> 입니다.`
                     result.classList.add('on')
@@ -426,6 +453,10 @@
                             cards[i].classList.remove('co02')
                             cards[i].classList.remove('pe01')
                             cards[i].classList.remove('pe02')
+                            co01.innerHTML = ``
+                            co02.innerHTML = ``
+                            pe01.innerHTML = ``
+                            pe02.innerHTML = ``
                         }
                         // 다시 시작
                         setTimeout(function(){
