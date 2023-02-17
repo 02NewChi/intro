@@ -46,6 +46,7 @@
     .playerBox .icon{display:block; margin:0 auto}
     .playerBox .title{margin-top:10px; font-size:40px; font-weight:500}
     .playerBox .money{margin-top:10px; padding:5px 50px; background-color:#333; border-radius:100px; color:#CCC; font-size:30px; font-weight:500}
+    .playerBox .money.active{background-color:#d25400}
     .playerBox .icon.winActive{animation:winAni 3s linear infinite}
     .playerBox .icon.loseActive{animation:loseAni 3s linear infinite}
     @keyframes winAni{
@@ -442,6 +443,17 @@
                         }
                     }else if(coSum === peSum){
                         alert('무승부') // 나중에 꼭 작업해야하는 부분 ★★★★★★★★★★
+                    }
+                    // 돈 더 많은 인원의 잔액표 active 효과
+                    if(parseInt(coMoney.innerHTML) > parseInt(peMoney.innerHTML)){
+                        coMoney.classList.add('active')
+                        peMoney.classList.remove('active')
+                    }else if(parseInt(coMoney.innerHTML) < parseInt(peMoney.innerHTML)){
+                        coMoney.classList.remove('active')
+                        peMoney.classList.add('active')
+                    }else{
+                        coMoney.classList.remove('active')
+                        peMoney.classList.remove('active')
                     }
                     // 카드 재분배
                     setTimeout(function(){
