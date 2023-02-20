@@ -121,8 +121,8 @@
         }
         // 사람, 물고기 이미지 랜덤 설정
         let randomImg = document.querySelector('.randomImg')
-        let randomArr = ['person', 'fish']
-        let randomNum = Math.floor(Math.random() * 2)
+        let randomArr = ['person', 'fish', 'army']
+        let randomNum = Math.floor(Math.random() * 3)
         console.log(randomNum) // 랜덤 숫자 0 또는 1
         randomImg.setAttribute('src', 'img/' + randomArr[randomNum] + '.png')
         // 눈 채워짐
