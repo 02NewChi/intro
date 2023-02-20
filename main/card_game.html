@@ -34,6 +34,7 @@
     .cardList .card.onCard{background-color:#CCC; border:5px solid #666}
     .cardList .card.onCard p{display:block}
     .cardList .card.ani{width:20%}
+    .cardList .card.end{top:50% !important; left:50% !important}
     @keyframes cardRotation{
         100%{transform:translate(-50%, -50%) rotate(360deg)}
     }
@@ -73,8 +74,8 @@
     /**/
     .count{display:none; text-align:center; font-size:100px; font-weight:500}
     .count.on{display:block}
-    .checkNumber{display:none; position:absolute; bottom:30px; left:0; width:100%; text-align:center; font-size:50px; font-weight:700}
-    .checkNumber span{font-size:60px; font-weight:900; color:#d25400}
+    .checkNumber{display:none; position:absolute; bottom:30px; left:0; width:100%; text-align:center; color:#666; font-size:50px; font-weight:700}
+    .checkNumber span{color:#333; font-size:60px; font-weight:900}
     .checkNumber.on{display:block}
     /**/
     .result{position:absolute; top:-1000px; left:0; width:100%; height:100%}
@@ -125,7 +126,7 @@
                     <p class="title">Card Plus Game</p>
                     <p class="txt">
                         안녕하세요 <span>Card Plus Game</span>입니다.<br>
-                        유저와 컴퓨터는 <span>각각 두 장의 카드</span>를 받고<br>
+                        유저와 컴퓨터는 <span>0 ~ 50의 카드 중 각각 두 장의 카드</span>를 받고<br>
                         카드의 <span>합이 더 큰 경우</span> 베팅 금액을 가져가는 게임입니다.<br>
                         <br>
                         <span class="color">1.</span>&nbsp; <span>가운데 카드를 클릭</span>해 주시면 카드가 섞입니다.<br>
@@ -495,13 +496,19 @@
             let endClose = document.querySelector('.endPopup .close')
             endTitle.innerHTML = name // 승자의 이름
             setTimeout(function(){
-                endPopup.classList.add('on')
+                // 카드 다시는 펼쳐지지 않음
+                for(let i=0; i<cards.length; i++){
+                    cards[i].classList.add('end')
+                }
                 setTimeout(function(){
-                    endTitle.classList.add('on')
-                    endReplay.classList.add('on')
-                    endClose.classList.add('on')
+                    endPopup.classList.add('on') // 종료 팝업 뜸
+                    setTimeout(function(){
+                        endTitle.classList.add('on')
+                        endReplay.classList.add('on')
+                        endClose.classList.add('on')
+                    }, 1000)
                 }, 1000)
-            }, 4000)
+            }, 3000)
             endReplay.addEventListener('click', () => {
                 location.reload()
             })
