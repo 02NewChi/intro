@@ -5,20 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Move</title>
 <style>
+    /* 예상 세팅 */
+    *{margin:0; padding:0; box-sizing:border-box}
+    body{height:3000px}
+    /* wrap */
+    .moveWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
+    .moveWrap.on{display:block}
+    .moveWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+    .moveWrap .con{position:absolute; bottom:0; right:-200px; width:200px; height:200px; border:1px solid #FFF; transition-duration:3s}
+    .moveWrap .con.on{right:50%; transform:translate(50%);}
+    /* cannon */
+    .cannonBody{position:absolute; top:90px; left:20px; width:100px; height:20px; background-color:#999; border:3px solid #333; border-radius:6px; transition-duration:1s}
+    .cannonBody::before{content:""; display:block; position:absolute; top:0; left:5px; width:calc(100% - 10px); height:5px; background-color:#CCC; border-radius:100px}
+    .cannonBody::after{content:""; display:block; position:absolute; bottom:0; left:15px; width:calc(100% - 30px); height:5px; background-color:#666; border-radius:100px}
+    .cannonBody.on{transform:rotate(90deg); transform-origin:100% 0}
+    /* body */
+    .iconBody{position:absolute; top:100px; right:24px; width:130px; height:60px; background-color:#999; border-radius:10px; border:3px solid #333; animation:upDown 1s linear infinite}
+    .iconBody::before{content:""; display:block; position:absolute; top:5px; left:5px; width:50%; height:40%; background-color:#CCC; border-radius:10px}
+    .iconBody::after{content:""; display:block; position:absolute; bottom:5px; right:5px; width:60%; height:30%; background-color:#666; border-radius:10px}
+    .iconBody .seat{position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:50%; height:60%; background-color:#999; border:3px solid #333; border-radius:100px 100px 0 0}
+    .iconBody .seat::after{content:""; display:block; position:absolute; bottom:0; left:5px; width:50%; height:60%; background-color:#CCC; border-radius:100px 100px 0 0}
+    .iconBody .seat::before{content:""; display:block; position:absolute; bottom:0; right:5px; width:40%; height:40%; background-color:#666; border-radius:100px 100px 0 0}
+    @keyframes upDown{
+        0%{top:95px}
+        50%{top:105px}
+        100%{top:95px}
+    }
+    /* wheel */
+    .iconWheel{position:absolute; bottom:0; background-color:#999; border:5px dashed #333; border-radius:100%}
+    .iconWheel::before{content:""; display:block; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:50%; height:50%; background-color:#666; border-radius:100%; border:3px solid #333}
+    .iconWheel::after{content:""; display:block; position:absolute; top:15%; left:15%; width:50%; height:30%; background-color:#CCC; border-radius:100%}
+    .wheel01{left:0; width:85px; height:85px; animation:rotate 8s linear infinite}
+    .wheel02{right:0; width:60px; height:60px; animation:rotate 4s linear infinite}
+    @keyframes rotate{
+        100%{transform:rotate(-360deg)}
+    }
+    /* cannonBall */
+    .cannonBall{position:absolute; top:100px; left:102px; width:16px; height:16px; background-color:#fdcbce; border-radius:100%; transition-duration:1.5s}
 </style>
-<script>
-</script>
 </head>
 <body>
+    <!-- 예상 세팅 -->
+    <button onclick="pageMoveAni01()">임시버튼</button>
+    <!---->
     <div class="moveWrap">
+        <div class="back"></div>
         <div class="con">
-            <div class="iconBody"></div>
+            <div class="cannonBall"></div>
+            <div class="cannonBody"></div>
+            <div class="iconBody">
+                <div class="seat"></div>
+            </div>
             <div class="iconWheel wheel01"></div>
             <div class="iconWheel wheel02"></div>
-            <div class="cannonBody"></div>
-            <div class="cannonBall"></div>
             <img src="" alt="" class="cannonImg">
         </div>
     </div>
+    <script>
+        function pageMoveAni01(){
+            let moveWrap = document.querySelector('.moveWrap')
+            let moveWrapCon = document.querySelector('.moveWrap .con')
+            let cannonBody = document.querySelector('.cannonBody')
+            let cannonBall = document.querySelector('.cannonBall')
+            let limitNum = -(Number(document.documentElement.clientHeight) - 200) // 보이는 화면 - 탱크의 높이
+            moveWrap.classList.add('on')
+            setTimeout(function(){
+                moveWrapCon.classList.add('on')
+                setTimeout(function(){
+                    cannonBody.classList.add('on')
+                    setTimeout(function(){
+                        cannonBall.style.top = limitNum + 'px'
+                        setTimeout(function(){
+                            alert('여기서 부터 시작 : 폭탄 터짐 효과')
+                        }, 1500)
+                    }, 1000)
+                }, 2000)
+            }, 100)
+        }
+    </script>
 </body>
 </html>
