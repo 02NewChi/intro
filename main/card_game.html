@@ -4,12 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Card Game</title>
+<link href="css/common.css" rel="stylesheet" type="text/css">
 <link href="css/move.css" rel="stylesheet" type="text/css">
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-    /* font-family:'Noto Sans KR', sans-serif */
-    *{margin:0; padding:0; box-sizing:border-box; transition-duration:1s; color:#333; font-size:16px; line-height:1.6em; font-weight:normal; letter-spacing:normal; font-family:'Noto Sans KR', sans-serif}
-    /**/
+    *{transition-duration:1s}
     body{width:100%; height:100vh; overflow:hidden; background-color:#333}
     .app{width:1920px; height:1080px; transform-origin:left top; padding:50px}
     .wrap{position:relative; width:100%; height:100%; background-color:#999; border-radius:40px; box-shadow:0 0 30px #000; overflow:hidden; transition-duration:0.5s}
@@ -118,6 +116,7 @@
 </script>
 </head>
 <body>
+    <div class="enter"><!-- 페이지 진입 효과 --></div>
     <div class="app">
         <div class="wrap">
             <!---->
@@ -185,8 +184,10 @@
             </div>
         </div>
     </div>
+    <script src="js/common.js"></script>
     <script src="js/move.js"></script>
     <script>
+        enter('#fdcbce') // 페이지 진입 효과
         // 인트로
         function introScene(){
             let intro = document.querySelector('.intro')

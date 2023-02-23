@@ -1,0 +1,9 @@
+/* 공통 */
+/* font-family:'Noto Sans KR', sans-serif */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+*{margin:0; padding:0; box-sizing:border-box; color:#333; font-size:16px; line-height:1.6em; font-weight:normal; letter-spacing:normal; font-family:'Noto Sans KR', sans-serif}
+/* 페이지 진입 효과 */
+.enter{position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:100%; height:100vh; transition-duration:1s; z-index:9999}
+.enter.active{width:10px; height:10px; border-radius:100%}
+.enter.on{opacity:0}
+.enter.off{display:none}
