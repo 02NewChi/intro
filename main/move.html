@@ -67,7 +67,7 @@
         </div>
     </div>
     <script>
-        function pageMoveAni01(bgColor){
+        function pageMoveAni01(bgColor, url){
             let moveWrap = document.querySelector('.moveWrap')
             let moveWrapCon = document.querySelector('.moveWrap .con')
             let cannonBody = document.querySelector('.cannonBody')
@@ -83,6 +83,9 @@
                         cannonBall.classList.add('shoot')
                         setTimeout(function(){
                             cannonBall.classList.add('bump')
+                            setTimeout(function(){
+                                location.href = url
+                            }, 1000)
                         }, 1000)
                     }, 1000)
                 }, 2000)

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Card Game</title>
+<link href="css/move.css" rel="stylesheet" type="text/css">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
     /* font-family:'Noto Sans KR', sans-serif */
@@ -180,10 +181,11 @@
             <div class="endPopup">
                 <p class="title">Message</p>
                 <p class="btn replay">Replay</p>
-                <p class="btn close">Close</p>
+                <p class="btn close" onclick="pageMoveAni01('#fdcbce', 'main.html')">Close</p>
             </div>
         </div>
     </div>
+    <script src="js/move.js"></script>
     <script>
         // 인트로
         function introScene(){
@@ -511,9 +513,6 @@
             }, 3000)
             endReplay.addEventListener('click', () => {
                 location.reload()
-            })
-            endClose.addEventListener('click', () => {
-                window.close()
             })
         }
     </script>
