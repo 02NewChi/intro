@@ -2,7 +2,7 @@
 .moveWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
 .moveWrap.on{display:block}
 .moveWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
-.moveWrap .con{position:absolute; bottom:0; right:-200px; width:200px; height:200px; border:1px solid #FFF; transition-duration:3s}
+.moveWrap .con{position:absolute; bottom:0; right:-200px; width:200px; height:200px; transition-duration:3s}
 .moveWrap .con.on{right:50%; transform:translate(50%);}
 /* cannon */
 .cannonBody{position:absolute; top:90px; left:20px; width:100px; height:20px; background-color:#999; border:3px solid #333; border-radius:6px; transition-duration:1s}

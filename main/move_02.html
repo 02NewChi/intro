@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Move</title>
+<style>
+    /* 예상 세팅 */
+    *{margin:0; padding:0; box-sizing:border-box}
+    body{height:3000px}
+    /* wrap */
+    .flyWrap{position:fixed; top:0; left:0; width:100%; height:100vh}
+    .flyBg{}
+    /**/
+    .flyCon{position:absolute; top:50%; left:0; transform:translateY(-50%); width:200px; height:200px; border:1px solid #000}
+</style>
+</head>
+<body>
+    <!-- 예상 세팅 -->
+    <button onclick="pageMoveAni01('#fdcbce')">핑크</button><br>
+    <button onclick="pageMoveAni01('red')">레드</button><br>
+    <button onclick="pageMoveAni01('blue')">블루</button><br>
+    <!---->
+    <div class="flyWrap">
+        <div class="flyBg"></div>
+        <div class="flyCon">
+            <div class="flyHead"></div>
+            <div class="flyBody"></div>
+            <div class="flyLeg01"></div>
+            <div class="flyLeg02"></div>
+            <div class="flyHand01"></div>
+            <div class="flyHand02"></div>
+            <div class="flyCloak"></div>
+        </div>
+    </div>
+    <script>
+        function pageMoveAni02(bgColor, url){
+            
+        }
+    </script>
+</body>
+</html>
