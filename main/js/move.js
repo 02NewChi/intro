@@ -39,3 +39,32 @@ function pageMoveAni01(bgColor, url){
         }, 2000)
     }, 100)
 }
+
+// 02 html
+document.querySelector('body').innerHTML += `
+    <div class="flyWrap">
+        <div class="flyBg"></div>
+        <div class="flyCon">
+            <img src="" alt="">
+        </div>
+    </div>
+`
+// 02 js
+function pageMoveAni02(bgColor, url){
+    let flyWrap = document.querySelector('.flyWrap')
+    let flyCon = document.querySelector('.flyCon')
+    let flyConImg = document.querySelector('.flyCon img')
+    flyWrap.classList.add('on')
+    flyCon.style.backgroundColor = bgColor
+    let imgList = ['army', 'fish', 'person']
+    flyConImg.setAttribute('src', 'img/' + imgList[Math.floor(Math.random()*imgList.length)] + '.png')
+    setTimeout(function(){
+        flyCon.classList.add('on')
+        setTimeout(function(){
+            flyCon.classList.add('active')
+            setTimeout(function(){
+                location.href = url
+            }, 2000)
+        }, 2000)
+    }, 10)
+}

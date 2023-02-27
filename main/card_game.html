@@ -43,21 +43,21 @@
     .playerPe{bottom:-500px; right:-500px}
     .playerCo.on{top:50px; left:50px}
     .playerPe.on{bottom:50px; right:50px}
-    .playerBox .icon{display:block; margin:0 auto}
+    .playerBox .icon{display:block; margin:0 auto; width:300px}
     .playerBox .title{margin-top:10px; font-size:40px; font-weight:500}
     .playerBox .money{margin-top:10px; padding:5px 50px; background-color:#333; border-radius:100px; color:#CCC; font-size:30px; font-weight:500}
     .playerBox .money.active{background-color:#d25400}
     .playerBox .icon.winActive{animation:winAni 3s linear infinite}
     .playerBox .icon.loseActive{animation:loseAni 3s linear infinite}
     @keyframes winAni{
-        0%{width:200px}
-        50%{width:350px; transform:rotate(360deg)}
-        100%{width:200px}
+        0%{width:300px}
+        50%{width:450px; transform:rotate(360deg)}
+        100%{width:300px}
     }
     @keyframes loseAni{
-        0% {width:200px}
+        0% {width:300px}
         50%{width:50px; transform:rotate(-360deg)}
-        100%{width:200px}
+        100%{width:300px}
     }
     /**/
     .choice{position:absolute; top:0; left:-2000px; width:100%; height:100%}
@@ -86,7 +86,7 @@
     .result .con .p00{font-size:70px; font-weight:700}
     .result .con .p05{display:table; width:auto; margin:40px auto 0 auto; padding:10px 100px; background-color:#d25400; color:#FFF; border-radius:100px; cursor:pointer}
     .result .con .p05:hover{background-color:#ff6600}
-    .result .con img{display:block; position:absolute; top:30px; right:30px}
+    .result .con img{display:block; position:absolute; top:30px; right:30px; width:400px}
     /**/
     .endPopup{position:absolute; bottom:-1000px; left:0; width:100%; height:100%; background-color:#999; border:15px solid #333; border-radius:40px}
     .endPopup .title{position:absolute; top:-1500px; left:0; width:100%; text-align:center; font-size:200px; font-weight:700}
@@ -143,12 +143,12 @@
             <!---->
             <p class="checkNumber">Check Number : <span>0</span></p>
             <div class="playerBox playerCo">
-                <img src="https://placehold.it/200x200" alt="" class="icon">
+                <img src="img/co.png" alt="" class="icon">
                 <p class="title">Computer</p>
                 <p class="money">1200 $</p>
             </div>
             <div class="playerBox playerPe">
-                <img src="https://placehold.it/200x200" alt="" class="icon">
+                <img src="img/pe.png" alt="" class="icon">
                 <p class="title">Player</p>
                 <p class="money">1200 $</p>
             </div>

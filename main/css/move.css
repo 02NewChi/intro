@@ -1,3 +1,4 @@
+/** 01 **/
 /* wrap */
 .moveWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
 .moveWrap.on{display:block}
@@ -35,3 +36,19 @@
 .cannonBall.on{display:block}
 .cannonBall.shoot{top:0}
 .cannonBall.bump{left:50%; width:100%; height:100%; border-radius:0; z-index:9999}
+
+/** 02 **/
+/* wrap */
+.flyWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
+.flyWrap.on{display:block}
+.flyBg{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+/**/
+.flyCon{position:absolute; top:0; left:calc(-100% - 200px); width:100%; height:100%; transition-duration:2s}
+.flyCon.on{left:-100%}
+.flyCon.active{left:0}
+.flyCon img{display:block; position:absolute; top:50%; right:-200px; transform:translateY(-50%); width:200px; animation:upDown 0.8s linear infinite}
+@keyframes upDown{
+    0%{top:calc(50% + 10px)}
+    50%{top:calc(50% - 10px)}
+    100%{top:calc(50% + 10px)}
+}
