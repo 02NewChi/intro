@@ -6,16 +6,114 @@
 <title>Main Page</title>
 <link href="css/common.css" rel="stylesheet" type="text/css">
 <link href="css/move.css" rel="stylesheet" type="text/css">
+<style>
+    body{height:3000px}
+    /* 파리잡기 */
+    .wing{display:block; position:fixed; top:-100px; left:-100px; width:20px; transition-duration:1s}
+    .wingPop{display:block; position:fixed; top:0; left:-100%; width:100%; height:100vh; transition-duration:0.5s}
+    .wingPop.on{left:0}
+    .wingPop .back{display:block; position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+    .wingPop .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:250px; background-color:#FFF; padding:20px; border-radius:20px; box-shadow:0 0 10px rgba(0,0,0,0.5)}
+    .wingPop .con h1{font-size:30px; font-weight:700; text-align:center}
+    .wingPop .con .list{margin-top:10px; display:flex; flex-wrap:wrap; text-align:center}
+    .wingPop .con .list p{display:block; width:50%; padding:10px; border-top:1px solid #333; border-left:1px solid #333; cursor:pointer}
+    .wingPop .con .list p.on{background-color:#333; color:#FFF}
+    .wingPop .con .list p:nth-child(2n){border-right:1px solid #333}
+    .wingPop .con .list p:nth-child(1){border-radius:10px 0 0 0}
+    .wingPop .con .list p:nth-child(2){border-radius:0 10px 0 0}
+    .wingPop .con .list p:nth-child(5){border-radius:0 0 0 10px; border-bottom:1px solid #333}
+    .wingPop .con .list p:nth-child(6){border-radius:0 0 10px 0; border-bottom:1px solid #333}
+    .wingPop .con button{display:block; margin:15px auto 0 auto; padding:5px 30px; border:none; border-radius:100px; background-color:#666; color:#FFF; cursor:pointer}
+    .wingPop .con button:hover{background-color:#333}
+</style>
 </head>
 <body>
     <div class="enter"><!-- 페이지 진입 효과 --></div>
     <h1>Main Page</h1>
     <button onclick="pageMoveAni02('#fdcbce', 'main.html')">메인 페이지</button>
     <button onclick="pageMoveAni01('#fdcbce', 'card_game.html')">카드게임</button>
+    <button onclick="wingFn()">파리잡기</button>
+    <img src="https://placehold.it/20x20" alt="" class="wing">
+    <div class="wingPop">
+        <div class="back"></div>
+        <div class="con">
+            <h1>난이도 설정</h1>
+            <div class="list">
+                <p class="on">1단계</p>
+                <p>2단계</p>
+                <p>3단계</p>
+                <p>4단계</p>
+                <p>5단계</p>
+                <p>6단계</p>
+            </div>
+            <button>시작</button>
+        </div>
+    </div>
     <script src="js/common.js"></script>
     <script src="js/move.js"></script>
     <script>
         enter('#fdcbce') // 페이지 진입 효과
+        // 파리잡기
+        function wingFn(){
+            let wingPop = document.querySelector('.wingPop')
+            let wingList = document.querySelectorAll('.wingPop .con .list p')
+            let wingBtn = document.querySelector('.wingPop .con button')
+            let wing = document.querySelector('.wing')
+            let levelNum = 1
+            // 단계 설정 팝업
+            wingPop.classList.add('on') // 팝업 열기
+            // 단계 선택 기능
+            for(let i=0; i<wingList.length; i++){
+                wingList[i].addEventListener('click', () => {
+                    for(let k=0; k<wingList.length; k++){
+                        wingList[k].classList.remove('on')
+                    }
+                    wingList[i].classList.add('on') // 선택 버튼 활성화
+                    // 레벨 변수에 담기
+                    let wingListOn = document.querySelector('.wingPop .con .list p.on')
+                    levelNum = parseInt(wingListOn.innerHTML)
+                    console.log('레벨 : ' + levelNum)
+                })
+            }
+            // 시작 버튼 클릭
+            wingBtn.addEventListener('click', () => {
+                wingPop.classList.remove('on') // 팝업 닫기
+                wingStart() // 게임 시작
+            })
+            // 화면 넓이
+            let screenWidth = document.documentElement.clientWidth
+            let screenHeight = document.documentElement.clientHeight
+            window.onresize = function(){
+                screenWidth = document.documentElement.clientWidth
+                screenHeight = document.documentElement.clientHeight
+                console.log('화면 넓이 : ' + screenWidth + ', 화면 높이 : ' + screenHeight)
+            }
+            console.log('화면 넓이 : ' + screenWidth + ', 화면 높이 : ' + screenHeight)
+            // 게임 실행
+            function wingStart(){
+                let levelValue = 3
+                if(levelNum == 1){ // 1단계
+                    levelValue = 3 // 3000 / 3초
+                }else if(levelNum == 2){ // 2단계
+                    levelValue = 2 // 2000 / 2초
+                }else if(levelNum == 3){ // 3단계
+                    levelValue = 1 // 1000 / 1초
+                }else if(levelNum == 4){ // 4단계
+                    levelValue = 0.5 // 500 / 0.5초
+                }else if(levelNum == 5){ // 5단계
+                    levelValue = 0.25 // 250 / 0.25초
+                }else if(levelNum == 6){ // 6단계
+                    levelValue = 0.1 // 100 / 0.1초
+                }
+                wing.style.transitionDuration = levelValue + 's'
+                let autoWing = setInterval(function(){
+                    wing.style.top = Math.floor(Math.random() * screenHeight) + 'px' // 랜덤 top
+                    wing.style.left = Math.floor(Math.random() * screenWidth) + 'px' // 랜덤 left
+                    console.log('랜덤 top : ' + wing.style.top + ', 랜덤 left : ' + wing.style.left)
+                }, Number(levelValue) * 1000)
+                console.log(Number(levelValue) * 1000)
+            }
+        }
     </script>
 </body>
 </html>
