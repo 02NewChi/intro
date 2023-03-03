@@ -7,3 +7,13 @@
 .enter.active{width:10px; height:10px; border-radius:100%}
 .enter.on{opacity:0}
 .enter.off{display:none}
+/* common x btn */
+.commonXbtn{position:absolute; top:20px; right:20px; width:50px; height:50px; cursor:pointer}
+.commonXbtn .rotate{position:absolute; top:0; left:0; width:100%; height:100%; transform:rotate(45deg)}
+.commonXbtn .rotate::after{content:""; display:block; position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; height:10px; background-color:#fdcbce; border-radius:100px; box-shadow:0 0 5px rgba(0,0,0,0.5)}
+.commonXbtn .rotate::before{content:""; display:block; position:absolute; top:0; left:50%; transform:translateX(-50%); width:10px; height:100%; background-color:#fdcbce; border-radius:100px; box-shadow:0 0 5px rgba(0,0,0,0.5)}
+.commonXbtn .area{position:absolute; top:0; left:0; width:100%; height:100%}
+.commonXbtn:hover{animation:xbtnRotate 1s linear infinite}
+@keyframes xbtnRotate{
+    100%{transform:rotate(360deg)}
+}
