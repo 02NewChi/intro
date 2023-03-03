@@ -143,25 +143,26 @@
                         endPop.classList.add('active')
                     }, 500)
                 })
+                // 팝업 닫기
+                let closeWing = () => {
+                    wingPop.classList.remove('on') // 팝업 닫기
+                    wing.classList.remove('on')
+                    wing.removeAttribute('style')
+                    endPop.classList.remove('on')
+                    endPop.classList.remove('active')
+                    setTimeout(() => {
+                        wingPopCon.classList.remove('off')
+                        wingPopCon.classList.remove('done')
+                    }, 500)
+                }
+                endPopBtn.addEventListener('click', () => {
+                    closeWing()
+                })
+                commonXbtnArea.addEventListener('click', () => {
+                    clearInterval(autoWing) // 파리 멈춤
+                    closeWing()
+                })
             }
-            // 팝업 닫기
-            let closeWing = () => {
-                wingPop.classList.remove('on') // 팝업 닫기
-                wing.classList.remove('on')
-                wing.removeAttribute('style')
-                endPop.classList.remove('on')
-                endPop.classList.remove('active')
-                setTimeout(() => {
-                    wingPopCon.classList.remove('off')
-                    wingPopCon.classList.remove('done')
-                }, 500)
-            }
-            endPopBtn.addEventListener('click', () => {
-                closeWing()
-            })
-            commonXbtnArea.addEventListener('click', () => {
-                closeWing()
-            })
         }
     </script>
 </body>
