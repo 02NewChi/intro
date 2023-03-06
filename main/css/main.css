@@ -1,0 +1,23 @@
+/* 파리잡기 */
+.wing{display:block; position:fixed; top:-100px; left:-100px; width:50px; transition-duration:1s; cursor:pointer}
+.wing.on{top:30px; left:30px}
+.wingPop{display:block; position:fixed; top:0; left:-100%; width:100%; height:100vh; transition-duration:0.5s}
+.wingPop.on{left:0}
+.wingPop .back{display:block; position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+.wingPop .pop{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:250px; background-color:#FFF; padding:20px; border-radius:20px; box-shadow:0 0 10px rgba(0,0,0,0.5); transition-duration:0.5s}
+.wingPop .pop .title{font-size:30px; font-weight:700; text-align:center}
+.wingPop .pop .btn{display:block; margin:15px auto 0 auto; padding:5px 30px; border:none; border-radius:100px; background-color:#666; color:#FFF; cursor:pointer}
+.wingPop .pop .btn:hover{background-color:#333}
+.wingPop .con.off{opacity:0}
+.wingPop .con.done{display:none}
+.wingPop .con .list{margin-top:10px; display:flex; flex-wrap:wrap; text-align:center}
+.wingPop .con .list p{display:block; width:50%; padding:10px; border-top:1px solid #333; border-left:1px solid #333; cursor:pointer}
+.wingPop .con .list p.on{background-color:#333; color:#FFF}
+.wingPop .con .list p:nth-child(2n){border-right:1px solid #333}
+.wingPop .con .list p:nth-child(1){border-radius:10px 0 0 0}
+.wingPop .con .list p:nth-child(2){border-radius:0 10px 0 0}
+.wingPop .con .list p:nth-child(5){border-radius:0 0 0 10px; border-bottom:1px solid #333}
+.wingPop .con .list p:nth-child(6){border-radius:0 0 10px 0; border-bottom:1px solid #333}
+.wingPop .endPop{display:none; opacity:0}
+.wingPop .endPop.on{display:block}
+.wingPop .endPop.active{opacity:1}

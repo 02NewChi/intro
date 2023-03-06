@@ -6,31 +6,9 @@
 <title>Main Page</title>
 <link href="css/common.css" rel="stylesheet" type="text/css">
 <link href="css/move.css" rel="stylesheet" type="text/css">
+<link href="css/main.css" rel="stylesheet" type="text/css">
 <style>
     body{height:3000px}
-    /* 파리잡기 */
-    .wing{display:block; position:fixed; top:-100px; left:-100px; width:50px; transition-duration:1s; cursor:pointer}
-    .wing.on{top:30px; left:30px}
-    .wingPop{display:block; position:fixed; top:0; left:-100%; width:100%; height:100vh; transition-duration:0.5s}
-    .wingPop.on{left:0}
-    .wingPop .back{display:block; position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
-    .wingPop .pop{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:250px; background-color:#FFF; padding:20px; border-radius:20px; box-shadow:0 0 10px rgba(0,0,0,0.5); transition-duration:0.5s}
-    .wingPop .pop .title{font-size:30px; font-weight:700; text-align:center}
-    .wingPop .pop .btn{display:block; margin:15px auto 0 auto; padding:5px 30px; border:none; border-radius:100px; background-color:#666; color:#FFF; cursor:pointer}
-    .wingPop .pop .btn:hover{background-color:#333}
-    .wingPop .con.off{opacity:0}
-    .wingPop .con.done{display:none}
-    .wingPop .con .list{margin-top:10px; display:flex; flex-wrap:wrap; text-align:center}
-    .wingPop .con .list p{display:block; width:50%; padding:10px; border-top:1px solid #333; border-left:1px solid #333; cursor:pointer}
-    .wingPop .con .list p.on{background-color:#333; color:#FFF}
-    .wingPop .con .list p:nth-child(2n){border-right:1px solid #333}
-    .wingPop .con .list p:nth-child(1){border-radius:10px 0 0 0}
-    .wingPop .con .list p:nth-child(2){border-radius:0 10px 0 0}
-    .wingPop .con .list p:nth-child(5){border-radius:0 0 0 10px; border-bottom:1px solid #333}
-    .wingPop .con .list p:nth-child(6){border-radius:0 0 10px 0; border-bottom:1px solid #333}
-    .wingPop .endPop{display:none; opacity:0}
-    .wingPop .endPop.on{display:block}
-    .wingPop .endPop.active{opacity:1}
 </style>
 </head>
 <body>
@@ -39,131 +17,11 @@
     <button onclick="pageMoveAni02('#fdcbce', 'main.html')">메인 페이지</button>
     <button onclick="pageMoveAni01('#fdcbce', 'card_game.html')">카드게임</button>
     <button onclick="wingFn()">파리잡기</button>
-    <div class="wingPop">
-        <div class="back"></div>
-        <div class="con pop">
-            <p class="title">난이도 설정</p>
-            <div class="list">
-                <p>1단계</p>
-                <p>2단계</p>
-                <p class="on">3단계</p>
-                <p>4단계</p>
-                <p>5단계</p>
-                <p>6단계</p>
-            </div>
-            <button class="btn">시작</button>
-        </div>
-        <img src="https://placehold.it/50x50" alt="" class="wing">
-        <div class="endPop pop">
-            <p class="title">성공!<br>축하합니다~</p>
-            <button class="btn">확인</button>
-        </div>
-        <div class="commonXbtn">
-            <div class="rotate"></div>
-            <div class="area"></div>
-        </div>
-    </div>
     <script src="js/common.js"></script>
     <script src="js/move.js"></script>
+    <script src="js/main.js"></script>
     <script>
         enter('#fdcbce') // 페이지 진입 효과
-        // 파리잡기
-        function wingFn(){
-            let wingPop = document.querySelector('.wingPop')
-            let wingPopCon = document.querySelector('.wingPop .con')
-            let wingList = document.querySelectorAll('.wingPop .con .list p')
-            let wingBtn = document.querySelector('.wingPop .con button')
-            let wing = document.querySelector('.wingPop .wing')
-            let endPop = document.querySelector('.wingPop .endPop')
-            let endPopBtn = document.querySelector('.wingPop .endPop .btn')
-            let commonXbtnArea = document.querySelector('.commonXbtn .area')
-            let levelNum = 3
-            wing.classList.add('on')
-            // 단계 설정 팝업
-            wingPop.classList.add('on') // 팝업 열기
-            // 단계 선택 기능
-            for(let i=0; i<wingList.length; i++){
-                wingList[i].addEventListener('click', () => {
-                    for(let k=0; k<wingList.length; k++){
-                        wingList[k].classList.remove('on')
-                    }
-                    wingList[i].classList.add('on') // 선택 버튼 활성화
-                    // 레벨 변수에 담기
-                    let wingListOn = document.querySelector('.wingPop .con .list p.on')
-                    levelNum = parseInt(wingListOn.innerHTML)
-                    console.log('레벨 : ' + levelNum)
-                })
-            }
-            // 시작 버튼 클릭
-            wingBtn.addEventListener('click', () => {
-                // 단계 설정 팝업 닫기
-                wingPopCon.classList.add('off')// 단계 설정 창 닫기
-                setTimeout(function(){
-                    wingPopCon.classList.add('done')
-                }, 500)
-                wingStart() // 게임 시작
-            })
-            // 화면 넓이
-            let screenWidth = document.documentElement.clientWidth
-            let screenHeight = document.documentElement.clientHeight
-            window.onresize = function(){
-                screenWidth = document.documentElement.clientWidth
-                screenHeight = document.documentElement.clientHeight
-                console.log('화면 넓이 : ' + screenWidth + ', 화면 높이 : ' + screenHeight)
-            }
-            console.log('화면 넓이 : ' + screenWidth + ', 화면 높이 : ' + screenHeight)
-            // 게임 실행
-            function wingStart(){
-                let levelValue = 1
-                if(levelNum == 1){ // 1단계
-                    levelValue = 3 // 3000 / 3초
-                }else if(levelNum == 2){ // 2단계
-                    levelValue = 2 // 2000 / 2초
-                }else if(levelNum == 3){ // 3단계
-                    levelValue = 1 // 1000 / 1초
-                }else if(levelNum == 4){ // 4단계
-                    levelValue = 0.5 // 500 / 0.5초
-                }else if(levelNum == 5){ // 5단계
-                    levelValue = 0.25 // 250 / 0.25초
-                }else if(levelNum == 6){ // 6단계
-                    levelValue = 0.1 // 100 / 0.1초
-                }
-                wing.style.transitionDuration = levelValue + 's'
-                let autoWing = setInterval(function(){
-                    wing.style.top = Math.floor(Math.random() * screenHeight) + 'px' // 랜덤 top
-                    wing.style.left = Math.floor(Math.random() * screenWidth) + 'px' // 랜덤 left
-                    console.log('랜덤 top : ' + wing.style.top + ', 랜덤 left : ' + wing.style.left)
-                }, Number(levelValue) * 1000)
-                console.log(Number(levelValue) * 1000)
-                // 파리 잡음 효과
-                wing.addEventListener('click', () => {
-                    clearInterval(autoWing) // 파리 멈춤
-                    endPop.classList.add('on')
-                    setTimeout(() => {
-                        endPop.classList.add('active')
-                    }, 500)
-                })
-                // 팝업 닫기
-                let closeWing = () => {
-                    wingPop.classList.remove('on') // 팝업 닫기
-                    wing.classList.remove('on')
-                    wing.removeAttribute('style')
-                    endPop.classList.remove('on')
-                    endPop.classList.remove('active')
-                    setTimeout(() => {
-                        wingPopCon.classList.remove('off')
-                        wingPopCon.classList.remove('done')
-                    }, 500)
-                }
-                endPopBtn.addEventListener('click', () => {
-                    closeWing()
-                })
-                commonXbtnArea.addEventListener('click', () => {
-                    clearInterval(autoWing) // 파리 멈춤
-                    closeWing()
-                })
-            }
-        }
     </script>
 </body>
 </html>
