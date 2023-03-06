@@ -1,3 +1,11 @@
+// random move function
+function randomMoveFn(bgColor, url){
+    let moveArr = ['01', '02']
+    let randomNum = Math.floor(Math.random() * moveArr.length)
+    console.log(randomNum)
+    eval('pageMoveAni' + moveArr[randomNum] + '(bgColor, url)')
+}
+// ★★★★★★★★★★★★★★★
 // 01 html
 document.querySelector('body').innerHTML += `
     <div class="moveWrap">
@@ -39,7 +47,7 @@ function pageMoveAni01(bgColor, url){
         }, 2000)
     }, 100)
 }
-
+// ★★★★★★★★★★★★★★★
 // 02 html
 document.querySelector('body').innerHTML += `
     <div class="flyWrap">

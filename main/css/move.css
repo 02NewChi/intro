@@ -36,7 +36,7 @@
 .cannonBall.on{display:block}
 .cannonBall.shoot{top:0}
 .cannonBall.bump{left:50%; width:100%; height:100%; border-radius:0; z-index:9999}
-
+/** ★★★★★★★★★★★★★★★ **/
 /** 02 **/
 /* wrap */
 .flyWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
