@@ -15,13 +15,21 @@
     .ballWrap .ballList{position:absolute; top:0; left:0; width:100%; height:100%}
     .ballWrap .ballList .ball{position:absolute; width:20px; height:20px; border-radius:100%; transition-duration:1s}
     .ballWrap .ballList .ball:nth-child(1){top:-20px; left:-20px}
-    .ballWrap .ballList .ball:nth-child(2){top:-20px; left:50%; transform:translateX(-50%)}
-    .ballWrap .ballList .ball:nth-child(3){top:-20px; left:100%}
-    .ballWrap .ballList .ball:nth-child(4){top:50%; left:-20px; transform:translateY(-50%)}
-    .ballWrap .ballList .ball:nth-child(5){top:50%; left:100%; transform:translateY(-50%)}
-    .ballWrap .ballList .ball:nth-child(6){top:100%; left:-20px}
-    .ballWrap .ballList .ball:nth-child(7){top:100%; left:50%; transform:translateX(-50%)}
-    .ballWrap .ballList .ball:nth-child(8){top:100%; left:100%}
+    .ballWrap .ballList .ball:nth-child(2){top:-20px; left:calc(25% - 10px)}
+    .ballWrap .ballList .ball:nth-child(3){top:-20px; left:50%; transform:translateX(-50%)}
+    .ballWrap .ballList .ball:nth-child(4){top:-20px; left:calc(75% - 10px)}
+    .ballWrap .ballList .ball:nth-child(5){top:-20px; left:100%}
+    .ballWrap .ballList .ball:nth-child(6){top:calc(25% - 10px); left:-20px}
+    .ballWrap .ballList .ball:nth-child(7){top:calc(25% - 10px); left:100%}
+    .ballWrap .ballList .ball:nth-child(8){top:50%; left:-20px; transform:translateY(-50%)}
+    .ballWrap .ballList .ball:nth-child(9){top:50%; left:100%; transform:translateY(-50%)}
+    .ballWrap .ballList .ball:nth-child(10){top:calc(75% - 10px); left:-20px}
+    .ballWrap .ballList .ball:nth-child(11){top:calc(75% - 10px); left:100%}
+    .ballWrap .ballList .ball:nth-child(12){top:100%; left:-20px}
+    .ballWrap .ballList .ball:nth-child(13){top:100%; left:calc(25% - 10px)}
+    .ballWrap .ballList .ball:nth-child(14){top:100%; left:50%; transform:translateX(-50%)}
+    .ballWrap .ballList .ball:nth-child(15){top:100%; left:calc(75% - 10px)}
+    .ballWrap .ballList .ball:nth-child(16){top:100%; left:100%}
     .ballWrap .ballList .ball.on{top:50%; left:50%; transform:translate(-50%, -50%)}
     /* main ball */
     .mainBall{display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:20px; height:20px; border-radius:100%; transition-duration:1s}
@@ -52,7 +60,7 @@
             // wrap 나타남
             ballWrap.style.display = 'block'
             // html 세팅
-            for(let i=0; i<8; i++){
+            for(let i=0; i<16; i++){
                 ballList.innerHTML += `
                     <div class="ball ball${i}"></div>
                 `
