@@ -23,7 +23,6 @@ document.body.innerHTML = document.body.innerHTML += `
         </div>
         <div class="commonXbtn">
             <div class="rotate"></div>
-            <div class="area"></div>
         </div>
     </div>
 `
@@ -36,8 +35,7 @@ function wingFn(){
     let wing = document.querySelector('.wingPop .wing')
     let endPop = document.querySelector('.wingPop .endPop')
     let endPopBtn = document.querySelector('.wingPop .endPop .btn')
-    let commonXbtnArea = document.querySelector('.commonXbtn .area')
-    let levelNum = 3
+    let commonXbtn = document.querySelector('.commonXbtn')
     wing.classList.add('on')
     // 단계 설정 팝업
     wingPop.classList.add('on') // 팝업 열기
@@ -48,16 +46,12 @@ function wingFn(){
                 wingList[k].classList.remove('on')
             }
             wingList[i].classList.add('on') // 선택 버튼 활성화
-            // 레벨 변수에 담기
-            let wingListOn = document.querySelector('.wingPop .con .list p.on')
-            levelNum = parseInt(wingListOn.innerHTML)
-            console.log('레벨 : ' + levelNum)
         })
     }
     // 시작 버튼 클릭
     wingBtn.addEventListener('click', () => {
         // 단계 설정 팝업 닫기
-        wingPopCon.classList.add('off')// 단계 설정 창 닫기
+        wingPopCon.classList.add('off')
         setTimeout(function(){
             wingPopCon.classList.add('done')
         }, 500)
@@ -75,6 +69,8 @@ function wingFn(){
     // 게임 실행
     function wingStart(){
         let levelValue = 1
+        // 레벨 변수에 담기
+        let levelNum = parseInt(document.querySelector('.wingPop .con .list p.on').innerHTML)
         if(levelNum == 1){ // 1단계
             levelValue = 3 // 3000 / 3초
         }else if(levelNum == 2){ // 2단계
@@ -92,9 +88,9 @@ function wingFn(){
         let autoWing = setInterval(function(){
             wing.style.top = Math.floor(Math.random() * screenHeight) + 'px' // 랜덤 top
             wing.style.left = Math.floor(Math.random() * screenWidth) + 'px' // 랜덤 left
-            console.log('랜덤 top : ' + wing.style.top + ', 랜덤 left : ' + wing.style.left)
+            // console.log('랜덤 top : ' + wing.style.top + ', 랜덤 left : ' + wing.style.left)
         }, Number(levelValue) * 1000)
-        console.log(Number(levelValue) * 1000)
+        console.log(levelNum + '단계 / ' + Number(levelValue) * 1000 + 's / ' + levelValue + '초')
         // 파리 잡음 효과
         wing.addEventListener('click', () => {
             clearInterval(autoWing) // 파리 멈춤
@@ -103,24 +99,26 @@ function wingFn(){
                 endPop.classList.add('active')
             }, 500)
         })
-        // 팝업 닫기
-        let closeWing = () => {
-            wingPop.classList.remove('on') // 팝업 닫기
-            wing.classList.remove('on')
-            wing.removeAttribute('style')
-            endPop.classList.remove('on')
-            endPop.classList.remove('active')
-            setTimeout(() => {
-                wingPopCon.classList.remove('off')
-                wingPopCon.classList.remove('done')
-            }, 500)
-        }
-        endPopBtn.addEventListener('click', () => {
-            closeWing()
-        })
-        commonXbtnArea.addEventListener('click', () => {
+        commonXbtn.addEventListener('click', () => {
             clearInterval(autoWing) // 파리 멈춤
-            closeWing()
         })
     }
+    // 팝업 닫기
+    let closeWing = () => {
+        wingPop.classList.remove('on') // 팝업 닫기
+        wing.classList.remove('on')
+        wing.removeAttribute('style')
+        endPop.classList.remove('on')
+        endPop.classList.remove('active')
+        setTimeout(() => {
+            wingPopCon.classList.remove('off')
+            wingPopCon.classList.remove('done')
+        }, 500)
+    }
+    endPopBtn.addEventListener('click', () => {
+        closeWing()
+    })
+    commonXbtn.addEventListener('click', () => {
+        closeWing()
+    })
 }
