@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Move</title>
+<style>
+    /* 예상 세팅 */
+    *{margin:0; padding:0; box-sizing:border-box}
+    body{height:3000px}
+    /**/
+    .superWrap{position:fixed; top:0; left:0; width:100%; height:100vh}
+    .superWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+    .superWrap .con{position:absolute; top:0%; left:calc(-100% - 200px); width:calc(100% + 200px); height:100%; transition-duration:2s}
+    .superWrap .con.on{left:0}
+    .superWrap .con div{position:absolute; top:50%; right:0; transform:translateY(-50%); width:100%; height:10px; transition-duration:2s}
+    .superWrap .con div.on{height:100%}
+    .superWrap .con img{display:block; position:absolute; top:50%; right:0; transform:translateY(-50%); width:200px; animation:superUpDown 1s linear infinite}
+    @keyframes superUpDown{
+        0%{top:calc(50% + 10px)}
+        50%{top:calc(50% - 10px)}
+        100%{top:calc(50% + 10px)}
+    }
+</style>
+</head>
+<body>
+    <!-- 예상 세팅 -->
+    <button onclick="pageMoveAni03('#fdcbce', 'move_03.html')">핑크</button><br>
+    <button onclick="pageMoveAni03('red')">레드</button><br>
+    <button onclick="pageMoveAni03('blue')">블루</button><br>
+    <!---->
+    <div class="superWrap">
+        <div class="back"></div>
+        <div class="con">
+            <div></div>
+            <img src="img/super_hori.png" alt="">
+        </div>
+    </div>
+    <script>
+        function pageMoveAni04(bgColor, url){
+            let superWrapCon = document.querySelector('.superWrap .con')
+            let superWrapConDiv = document.querySelector('.superWrap .con div')
+            superWrapConDiv.style.backgroundColor = bgColor
+            setTimeout(function(){
+                superWrapCon.classList.add('on')
+                setTimeout(function(){
+                    superWrapConDiv.classList.add('on')
+                    setTimeout(function(){
+                        location.href = url
+                    }, 2000)
+                }, 2000)
+            }, 100)
+        }
+        pageMoveAni04('#fdcbce', 'move_04.html')
+    </script>
+</body>
+</html>
