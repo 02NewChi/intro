@@ -98,6 +98,16 @@
     .endPopup .title.on{top:100px}
     .endPopup .replay.on{left:300px}
     .endPopup .close.on{right:300px}
+    /**/
+    .commonXbtn{width:100px; height:100px; z-index:1}
+    .commonXbtn .rotate::before{width:20px; background-color:#d25400}
+    .commonXbtn .rotate::after{height:20px; background-color:#ff6600}
+    /**/
+    .closePop{position:absolute; top:100%; left:-100%; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:40px; z-index:2}
+    .closePop.on{top:0; left:0}
+    .closePop .con{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:600px; height:200px; background-color:#CCC; border-radius:20px; display:flex; justify-content:space-evenly; box-shadow:0 0 10px rgba(0,0,0,0.5)}
+    .closePop .con p{display:block; position:relative; top:25px; width:calc(50% - 40px); height:150px; text-align:center; line-height:140px; font-size:60px; background-color:#d25400; color:#CCC; border-radius:20px; cursor:pointer}
+    .closePop .con p:hover{background-color:#ff6600; color:#FFF; font-size:70px}
 </style>
 <script>
     // 16 : 9 비율 만들기
@@ -181,6 +191,17 @@
                 <p class="title">Message</p>
                 <p class="btn replay">Replay</p>
                 <p class="btn close" onclick="randomMoveFn('#fdcbce', 'main.html')">Close</p>
+            </div>
+            <!---->
+            <div class="commonXbtn">
+                <div class="rotate"></div>
+                <div class="area"></div>
+            </div>
+            <div class="closePop">
+                <div class="con">
+                    <p class="stay">Stay</p>
+                    <p class="out">Out</p>
+                </div>
             </div>
         </div>
     </div>
@@ -516,6 +537,20 @@
                 location.reload()
             })
         }
+        // close btn click
+        let commonXbtn = document.querySelector('.commonXbtn')
+        let closePop = document.querySelector('.closePop')
+        let closeStay = document.querySelector('.closePop .stay')
+        let closeOut = document.querySelector('.closePop .out')
+        commonXbtn.addEventListener('click', () => {
+            closePop.classList.add('on')
+        })
+        closeStay.addEventListener('click', () => {
+            closePop.classList.remove('on')
+        })
+        closeOut.addEventListener('click', () => {
+            randomMoveFn('#fdcbce', 'main.html')
+        })
     </script>
 </body>
 </html>
