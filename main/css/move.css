@@ -1,16 +1,13 @@
 /** 01 **/
-/* wrap */
 .moveWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
 .moveWrap.on{display:block}
 .moveWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
 .moveWrap .con{position:absolute; bottom:0; right:-200px; width:200px; height:200px; transition-duration:3s}
 .moveWrap .con.on{right:50%; transform:translate(50%);}
-/* cannon */
 .cannonBody{position:absolute; top:90px; left:20px; width:100px; height:20px; background-color:#999; border:3px solid #333; border-radius:6px; transition-duration:1s}
 .cannonBody::before{content:""; display:block; position:absolute; top:0; left:5px; width:calc(100% - 10px); height:5px; background-color:#CCC; border-radius:100px}
 .cannonBody::after{content:""; display:block; position:absolute; bottom:0; left:15px; width:calc(100% - 20px); height:5px; background-color:#666; border-radius:100px}
 .cannonBody.on{transform:rotate(90deg); transform-origin:100% 0}
-/* body */
 .iconBody{position:absolute; top:100px; right:24px; width:130px; height:60px; background-color:#999; border-radius:10px; border:3px solid #333; animation:upDown 1s linear infinite}
 .iconBody::before{content:""; display:block; position:absolute; top:5px; left:5px; width:50%; height:40%; background-color:#CCC; border-radius:10px}
 .iconBody::after{content:""; display:block; position:absolute; bottom:5px; right:5px; width:60%; height:30%; background-color:#666; border-radius:10px}
@@ -22,7 +19,6 @@
     50%{top:105px}
     100%{top:95px}
 }
-/* wheel */
 .iconWheel{position:absolute; bottom:0; background-color:#999; border:5px dashed #333; border-radius:100%}
 .iconWheel::before{content:""; display:block; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:50%; height:50%; background-color:#666; border-radius:100%; border:3px solid #333}
 .iconWheel::after{content:""; display:block; position:absolute; top:15%; left:15%; width:50%; height:30%; background-color:#CCC; border-radius:100%}
@@ -31,18 +27,14 @@
 @keyframes rotate{
     100%{transform:rotate(-360deg)}
 }
-/* cannonBall */
 .cannonBall{display:none; position:absolute; top:calc(100vh - 70px); left:calc(50% + 10px); transform:translateX(-50%); width:16px; height:16px; border-radius:100%; transition-duration:1s}
 .cannonBall.on{display:block}
 .cannonBall.shoot{top:0}
 .cannonBall.bump{left:50%; width:100%; height:100%; border-radius:0; z-index:9999}
-/** ★★★★★★★★★★★★★★★ **/
 /** 02 **/
-/* wrap */
 .flyWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
 .flyWrap.on{display:block}
 .flyBg{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
-/**/
 .flyCon{position:absolute; top:0; left:calc(-100% - 200px); width:100%; height:100%; transition-duration:2s}
 .flyCon.on{left:-100%}
 .flyCon.active{left:0}
@@ -51,4 +43,35 @@
     0%{top:calc(50% + 10px)}
     50%{top:calc(50% - 10px)}
     100%{top:calc(50% + 10px)}
+}
+/** 03 **/
+.ballWrap{display:none; position:fixed; top:0; left:0; width:100%; height:100vh}
+.ballWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+.ballWrap .ballList{position:absolute; top:0; left:0; width:100%; height:100%}
+.ballWrap .ballList .ball{position:absolute; width:20px; height:20px; border-radius:100%; transition-duration:1s}
+.ballWrap .ballList .ball:nth-child(1){top:-20px; left:-20px}
+.ballWrap .ballList .ball:nth-child(2){top:-20px; left:calc(25% - 10px)}
+.ballWrap .ballList .ball:nth-child(3){top:-20px; left:50%; transform:translateX(-50%)}
+.ballWrap .ballList .ball:nth-child(4){top:-20px; left:calc(75% - 10px)}
+.ballWrap .ballList .ball:nth-child(5){top:-20px; left:100%}
+.ballWrap .ballList .ball:nth-child(6){top:calc(25% - 10px); left:-20px}
+.ballWrap .ballList .ball:nth-child(7){top:calc(25% - 10px); left:100%}
+.ballWrap .ballList .ball:nth-child(8){top:50%; left:-20px; transform:translateY(-50%)}
+.ballWrap .ballList .ball:nth-child(9){top:50%; left:100%; transform:translateY(-50%)}
+.ballWrap .ballList .ball:nth-child(10){top:calc(75% - 10px); left:-20px}
+.ballWrap .ballList .ball:nth-child(11){top:calc(75% - 10px); left:100%}
+.ballWrap .ballList .ball:nth-child(12){top:100%; left:-20px}
+.ballWrap .ballList .ball:nth-child(13){top:100%; left:calc(25% - 10px)}
+.ballWrap .ballList .ball:nth-child(14){top:100%; left:50%; transform:translateX(-50%)}
+.ballWrap .ballList .ball:nth-child(15){top:100%; left:calc(75% - 10px)}
+.ballWrap .ballList .ball:nth-child(16){top:100%; left:100%}
+.ballWrap .ballList .ball.on{top:50%; left:50%; transform:translate(-50%, -50%)}
+.mainBall{display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:20px; height:20px; border-radius:100%; transition-duration:1s}
+.mainBall.on{display:block}
+.mainBall.ani{animation:bounceBall 0.5s linear; animation-iteration-count:3}
+.mainBall.boom{width:100%; height:100%; border-radius:0}
+@keyframes bounceBall{
+    0%{width:20px; height:20px}
+    50%{width:30px; height:30px}
+    100%{width:20px; height:20px}
 }
