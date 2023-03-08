@@ -4,6 +4,7 @@ document.body.innerHTML = document.body.innerHTML += `
     <!-- 파리 잡기 -->
     <div class="wingPop">
         <div class="back"></div>
+        <p class="count">3</p>
         <div class="con pop">
             <p class="title">난이도 설정</p>
             <div class="list">
@@ -36,7 +37,16 @@ function wingFn(){
     let endPop = document.querySelector('.wingPop .endPop')
     let endPopBtn = document.querySelector('.wingPop .endPop .btn')
     let commonXbtn = document.querySelector('.commonXbtn')
+    let wingCount = document.querySelector('.wingPop .count')
+    let wingCountBoolean = true // interval 제어 boolean
+    // count 설정
+    wingCount.style.opacity = '1' // count 나타남
+    wingCount.innerHTML = '3' // count 초기화
+    // 파리 비활성화
     wing.classList.add('on')
+    wing.style.pointerEvents = 'none'
+    wing.style.opacity = '0.5'
+    wing.style.width = '20px'
     // 단계 설정 팝업
     wingPop.classList.add('on') // 팝업 열기
     // 단계 선택 기능
@@ -68,8 +78,25 @@ function wingFn(){
     console.log('화면 넓이 : ' + screenWidth + ', 화면 높이 : ' + screenHeight)
     // 게임 실행
     function wingStart(){
-        let levelValue = 1
+        // count down
+        setInterval(() => {
+            if(wingCountBoolean){
+                wingCount.innerHTML = Number(wingCount.innerHTML) - 1 // count 1씩 감소
+                if(Number(wingCount.innerHTML) <= 0){ // count 0 이 되면
+                    wingCountBoolean = false // interval 멈춤
+                    wingCount.innerHTML = '시작!'
+                    setTimeout(() => {
+                        wingCount.style.opacity = '0' // count 사라짐
+                    }, 1000)
+                    // 파리 활성화
+                    wing.style.pointerEvents = 'auto'
+                    wing.style.opacity = '1'
+                    wing.style.width = '50px'
+                }
+            }
+        }, 1000)
         // 레벨 변수에 담기
+        let levelValue = 1
         let levelNum = parseInt(document.querySelector('.wingPop .con .list p.on').innerHTML)
         if(levelNum == 1){ // 1단계
             levelValue = 3 // 3000 / 3초

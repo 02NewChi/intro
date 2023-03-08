@@ -11,15 +11,28 @@
     /**/
     .superWrap{position:fixed; top:0; left:0; width:100%; height:100vh}
     .superWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
-    .superWrap .con{position:absolute; top:0%; left:calc(-100% - 200px); width:calc(100% + 200px); height:100%; transition-duration:2s}
-    .superWrap .con.on{left:0}
-    .superWrap .con div{position:absolute; top:50%; right:0; transform:translateY(-50%); width:100%; height:10px; transition-duration:2s}
-    .superWrap .con div.on{height:100%}
-    .superWrap .con img{display:block; position:absolute; top:50%; right:0; transform:translateY(-50%); width:200px; animation:superUpDown 1s linear infinite}
-    @keyframes superUpDown{
+    .superWrap .con{position:absolute; transition-duration:2s}
+    .superWrap .con.hori{top:0; left:calc(-100% - 200px); width:calc(100% + 200px); height:100%}
+    .superWrap .con.vert{top:calc(100% + 200px); left:0; width:100%; height:calc(100% + 200px)}
+    .superWrap .con.hori.on{left:0}
+    .superWrap .con.vert.on{top:-200px}
+    .superWrap .con div{position:absolute; transition-duration:2s}
+    .superWrap .con.hori div{top:50%; right:0; transform:translateY(-50%); width:100%; height:10px}
+    .superWrap .con.vert div{top:0; left:50%; transform:translateX(-50%); width:10px; height:100%}
+    .superWrap .con.hori div.on{height:100%}
+    .superWrap .con.vert div.on{width:100%}
+    .superWrap .con img{display:block; position:absolute}
+    .superWrap .con.hori img{top:50%; right:0; transform:translateY(-50%); width:200px; animation:superUpDownHori 1s linear infinite}
+    .superWrap .con.vert img{top:0; left:50%; transform:translateX(-50%); width:200px; animation:superUpDownVert 1s linear infinite}
+    @keyframes superUpDownHori{
         0%{top:calc(50% + 10px)}
         50%{top:calc(50% - 10px)}
         100%{top:calc(50% + 10px)}
+    }
+    @keyframes superUpDownVert{
+        0%{left:calc(50% + 10px)}
+        50%{left:calc(50% - 10px)}
+        100%{left:calc(50% + 10px)}
     }
 </style>
 </head>
@@ -40,6 +53,13 @@
         function pageMoveAni04(bgColor, url){
             let superWrapCon = document.querySelector('.superWrap .con')
             let superWrapConDiv = document.querySelector('.superWrap .con div')
+            /* 랜덤 css class */
+            let horiVert = ['hori', 'vert'] // css class 종류
+            let randomNum = Math.floor(Math.random() * horiVert.length) // 랜덤 숫자
+            let randomClass = horiVert[randomNum] // class 종류 중 랜덤 하나 선택
+            superWrapCon.classList.add(randomClass)
+            console.log(randomClass)
+            /* 애니메이션 효과 */
             superWrapConDiv.style.backgroundColor = bgColor
             setTimeout(function(){
                 superWrapCon.classList.add('on')
