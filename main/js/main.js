@@ -17,7 +17,9 @@ document.body.innerHTML = document.body.innerHTML += `
             </div>
             <button class="btn">시작</button>
         </div>
-        <img src="https://placehold.it/50x50" alt="" class="wing">
+        <img src="img/wing_on.png" alt="" class="wing">
+        <p class="missHitTxt miss">Miss</p>
+        <p class="missHitTxt hit">HIT</p>
         <div class="endPop pop">
             <p class="title">성공!<br>축하합니다~</p>
             <button class="btn">확인</button>
@@ -30,6 +32,7 @@ document.body.innerHTML = document.body.innerHTML += `
 // fn
 function wingFn(){
     let wingPop = document.querySelector('.wingPop')
+    let wingPopBack = document.querySelector('.wingPop .back')
     let wingPopCon = document.querySelector('.wingPop .con')
     let wingList = document.querySelectorAll('.wingPop .con .list p')
     let wingBtn = document.querySelector('.wingPop .con button')
@@ -37,8 +40,45 @@ function wingFn(){
     let endPop = document.querySelector('.wingPop .endPop')
     let endPopBtn = document.querySelector('.wingPop .endPop .btn')
     let commonXbtn = document.querySelector('.commonXbtn')
+    let wingMiss = document.querySelector('.wingPop .miss')
+    let wingHit = document.querySelector('.wingPop .hit')
     let wingCount = document.querySelector('.wingPop .count')
     let wingCountBoolean = true // interval 제어 boolean
+    // 파리 못맞출 시 'Miss', '반동', '탄피' 표시
+    wingPopBack.addEventListener('click', (e) => {
+        let clientX = e.clientX // 보이는 화면의 X 값
+        let clientY = e.clientY // 보이는 화면의 Y 값
+        console.log(clientX, clientY)
+        // miss
+        wingMiss.classList.add('on')
+        wingMiss.style.top = Number(clientY) - 100 + 'px'
+        wingMiss.style.left = clientX + 'px'
+        // 반동
+        wingPop.classList.add('bounce')
+        setTimeout(() => {
+            wingMiss.classList.remove('on')
+            wingPop.classList.remove('bounce')
+        }, 500)
+    })
+    // 파리 맞출 시 'HIT', '반동', '탄피', '잡은 이미지' 표시
+    wing.addEventListener('click', (e) => {
+        let clientX = e.clientX // 보이는 화면의 X 값
+        let clientY = e.clientY // 보이는 화면의 Y 값
+        console.log(clientX, clientY)
+        // hit
+        wingHit.classList.add('on')
+        wingHit.style.top = Number(clientY) - 100 + 'px'
+        wingHit.style.left = clientX + 'px'
+        // 반동
+        wing.classList.add('bounce')
+        setTimeout(() => {
+            wingHit.classList.remove('on')
+            wing.classList.remove('bounce')
+        }, 1000)
+        // 파리 잡은 이미지로 변환
+        wing.setAttribute('src', 'img/wing_off.png') // 잡은 파리 이미지
+    })
+    wing.setAttribute('src', 'img/wing_on.png') // 파리 이미지 초기화
     // count 설정
     wingCount.style.opacity = '1' // count 나타남
     wingCount.innerHTML = '3' // count 초기화
@@ -91,7 +131,7 @@ function wingFn(){
                     // 파리 활성화
                     wing.style.pointerEvents = 'auto'
                     wing.style.opacity = '1'
-                    wing.style.width = '50px'
+                    wing.style.width = '100px'
                 }
             }
         }, 1000)
