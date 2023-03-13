@@ -1,6 +1,6 @@
 // random move function
 function randomMoveFn(bgColor, url){
-    let moveArr = ['01', '02', '03']
+    let moveArr = ['01', '02', '03', '04']
     let randomNum = Math.floor(Math.random() * moveArr.length)
     console.log(randomNum)
     eval('pageMoveAni' + moveArr[randomNum] + '(bgColor, url)')
@@ -124,4 +124,41 @@ function pageMoveAni03(bgColor, url){
             }, 2000)
         }, 1000)
     }, 500)
+}
+// 04 html
+document.querySelector('body').innerHTML += `
+    <div class="superWrap">
+        <div class="back"></div>
+        <div class="con">
+            <div></div>
+            <img src="" alt="">
+        </div>
+    </div>
+`
+// 04 js
+function pageMoveAni04(bgColor, url){
+    let superWrap = document.querySelector('.superWrap')
+    let superWrapCon = document.querySelector('.superWrap .con')
+    let superWrapConDiv = document.querySelector('.superWrap .con div')
+    let superWrapConImg = document.querySelector('.superWrap .con img')
+    /* 시작 */
+    superWrap.classList.add('on')
+    /* 랜덤 css class */
+    let horiVert = ['hori', 'vert'] // css class 종류
+    let randomNum = Math.floor(Math.random() * horiVert.length) // 랜덤 숫자
+    let randomClass = horiVert[randomNum] // class 종류 중 랜덤 하나 선택
+    superWrapCon.classList.add(randomClass)
+    superWrapConImg.setAttribute('src', 'img/super_'+randomClass+'.png') // 가로 세로에 맞는 이미지
+    console.log(randomClass)
+    /* 애니메이션 효과 */
+    superWrapConDiv.style.backgroundColor = bgColor
+    setTimeout(function(){
+        superWrapCon.classList.add('on')
+        setTimeout(function(){
+            superWrapConDiv.classList.add('on')
+            setTimeout(function(){
+                location.href = url
+            }, 2000)
+        }, 2000)
+    }, 100)
 }

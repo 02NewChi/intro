@@ -9,7 +9,8 @@
     *{margin:0; padding:0; box-sizing:border-box}
     body{height:3000px}
     /**/
-    .superWrap{position:fixed; top:0; left:0; width:100%; height:100vh}
+    .superWrap{position:fixed; top:0; left:0; width:100%; height:100vh; display:none}
+    .superWrap.on{display:block}
     .superWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
     .superWrap .con{position:absolute; transition-duration:2s}
     .superWrap .con.hori{top:0; left:calc(-100% - 200px); width:calc(100% + 200px); height:100%}
@@ -38,9 +39,9 @@
 </head>
 <body>
     <!-- 예상 세팅 -->
-    <button onclick="pageMoveAni03('#fdcbce', 'move_03.html')">핑크</button><br>
-    <button onclick="pageMoveAni03('red')">레드</button><br>
-    <button onclick="pageMoveAni03('blue')">블루</button><br>
+    <button onclick="pageMoveAni04('#fdcbce', 'move_04.html')">핑크</button><br>
+    <button onclick="pageMoveAni04('red', 'move_04.html')">레드</button><br>
+    <button onclick="pageMoveAni04('blue', 'move_04.html')">블루</button><br>
     <!---->
     <div class="superWrap">
         <div class="back"></div>
@@ -51,9 +52,12 @@
     </div>
     <script>
         function pageMoveAni04(bgColor, url){
+            let superWrap = document.querySelector('.superWrap')
             let superWrapCon = document.querySelector('.superWrap .con')
             let superWrapConDiv = document.querySelector('.superWrap .con div')
             let superWrapConImg = document.querySelector('.superWrap .con img')
+            /* 시작 */
+            superWrap.classList.add('on')
             /* 랜덤 css class */
             let horiVert = ['hori', 'vert'] // css class 종류
             let randomNum = Math.floor(Math.random() * horiVert.length) // 랜덤 숫자
@@ -73,7 +77,6 @@
                 }, 2000)
             }, 100)
         }
-        pageMoveAni04('#fdcbce', 'move_04.html')
     </script>
 </body>
 </html>
