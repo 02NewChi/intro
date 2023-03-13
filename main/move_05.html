@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Move</title>
+<style>
+    /* 예상 세팅 */
+    *{margin:0; padding:0; box-sizing:border-box}
+    body{height:3000px}
+    /**/
+    .gunWrap{position:fixed; top:0; left:0; width:100%; height:100vh}
+    .gunWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
+    .gunWrap .con{position:absolute; top:0; left:0; width:100%; height:100%}
+</style>
+</head>
+<body>
+    <!-- 예상 세팅 -->
+    <button onclick="pageMoveAni05('#fdcbce', 'move_05.html')">핑크</button><br>
+    <button onclick="pageMoveAni05('red', 'move_05.html')">레드</button><br>
+    <button onclick="pageMoveAni05('blue', 'move_05.html')">블루</button><br>
+    <!---->
+    <div class="gunWrap">
+        <div class="back"></div>
+        <div class="con">
+            <div class="gunPerson">
+                <div class="gunHead"></div>
+                <div class="gunBody">
+                    <div class="arm01"></div>
+                    <div class="arm02"></div>
+                    <div class="leg01"></div>
+                    <div class="leg02"></div>
+                </div>
+                <div class="gunObject"></div>
+            </div>
+            <div class="gunBallList"></div>
+        </div>
+    </div>
+    <script>
+        function pageMoveAni05(bgColor, url){
+            
+        }
+    </script>
+</body>
+</html>
