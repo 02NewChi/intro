@@ -12,6 +12,45 @@
     .gunWrap{position:fixed; top:0; left:0; width:100%; height:100vh}
     .gunWrap .back{position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5)}
     .gunWrap .con{position:absolute; top:0; left:0; width:100%; height:100%}
+    /**/
+    .gunPerson{position:absolute; bottom:0; left:100px; width:200px; height:300px; border:1px solid #000}
+    .gunHead{position:absolute; top:0; left:50%; transform:translateX(-50%); width:100px; height:100px; background-color:#666; border-radius:100%; border:5px solid #333}
+    .gunHead::before{content:""; display:block; position:absolute; bottom:6px; right:15px; width:35px; height:25px; background-color:#999; border-radius:10px 10px 100px 10px}
+    .gunHead::after{content:""; display:block; position:absolute; bottom:11px; right:20px; width:20px; height:15px; background-color:#CCC; border-radius:10px 10px 100px 10px}
+    .gunHead .cap{position:absolute; top:-10px; left:-10px; width:calc(100% + 20px); height:calc(50% + 20px); background-color:#666; border:5px solid #333; border-radius:100px 100px 0 0}
+    .gunHead .cap::before{content:""; display:block; position:absolute; top:10px; right:10px; width:50px; height:40px; background-color:#999; border-radius:10px 100px 10px 10px}
+    .gunHead .cap::after{content:""; display:block; position:absolute; top:18px; right:17px; width:30px; height:25px; background-color:#CCC; border-radius:10px 100px 10px 10px}
+    /**/
+    .gunBody{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:40%; height:30%; background-color:#666; border:5px solid #333; border-radius:20px}
+    .gunBody::before{content:""; display:block; position:absolute; top:8px; right:8px; width:50%; height:70%; background-color:#999; border-radius:8px}
+    .gunBody::after{content:""; display:block; position:absolute; top:14px; right:14px; width:20%; height:50%; background-color:#CCC; border-radius:5px}
+    .gunBody .leg{position:absolute; background-color:#666; border:5px solid #333; border-radius:100px}
+    .gunBody .legLeft{bottom:-125px; left:5px; width:40px; height:120px; transform-origin:0 0; transform:rotate(45deg)}
+    .gunBody .legRight01{bottom:-110px; right:-30px; width:40px; height:100px}
+    .gunBody .legRight02{bottom:-50px; left:-10px; width:110px; height:40px}
+    .gunBody .leg::before{content:""; display:block; position:absolute; background-color:#999; border-radius:100px}
+    .gunBody .leg::after{content:""; display:block; position:absolute; background-color:#CCC; border-radius:100px}
+    .gunBody .legLeft::before{width:50%; height:85%; top:5px; left:5px}
+    .gunBody .legLeft::after{width:25%; height:75%; top:5px; left:5px}
+    .gunBody .legRight01::before{width:50%; height:85%; top:5px; right:5px}
+    .gunBody .legRight01::after{width:25%; height:75%; top:5px; right:5px}
+    .gunBody .legRight02::before{width:85%; height:50%; top:5px; right:5px}
+    .gunBody .legRight02::after{width:70%; height:25%; top:5px; right:12px}
+    /**/
+    .gunObject{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:100%; height:10%; background-color:#666; border-radius:10px; border:5px solid #333; z-index:1}
+    .gunObject .handle01{position:absolute; bottom:-50px; left:0; width:30px; height:80px; background-color:#666; border:5px solid #333; border-radius:10px; transform:rotate(45deg)}
+    .gunObject .handle02{position:absolute; top:-10px; left:-10px; width:80px; height:40px; background-color:#666; border:5px solid #333; border-radius:10px; z-index:1}
+    .gunObject .muzzle{position:absolute; top:50%; right:-40px; transform:translateY(-50%); width:40px; height:20px; background-color:#666; border:5px solid #333; border-radius:5px}
+    .gunObject::before{content:""; display:block; position:absolute; top:3px; left:50%; transform:translateX(-50%); background-color:#999; border-radius:100px; width:90%; height:40%}
+    .gunObject::after{content:""; display:block; position:absolute; top:3px; left:50%; transform:translateX(-50%); background-color:#CCC; border-radius:100px; width:70%; height:20%}
+    .gunObject *::before{content:""; display:block; position:absolute; background-color:#999; border-radius:100px}
+    .gunObject *::after{content:""; display:block; position:absolute; background-color:#CCC; border-radius:100px}
+    .gunObject .handle01::before{top:50%; left:3px; transform:translateY(-50%); width:60%; height:80%}
+    .gunObject .handle01::after{top:50%; left:3px; transform:translateY(-50%); width:30%; height:60%}
+    .gunObject .handle02::before{top:3px; left:50%; transform:translateX(-50%); width:80%; height:60%}
+    .gunObject .handle02::after{top:3px; left:50%; transform:translateX(-50%); width:60%; height:30%}
+    .gunObject .muzzle::before{top:0px; left:50%; transform:translateX(-50%); width:80%; height:60%}
+    .gunObject .muzzle::after{top:0px; left:50%; transform:translateX(-50%); width:60%; height:30%}
 </style>
 </head>
 <body>
@@ -24,14 +63,19 @@
         <div class="back"></div>
         <div class="con">
             <div class="gunPerson">
-                <div class="gunHead"></div>
-                <div class="gunBody">
-                    <div class="arm01"></div>
-                    <div class="arm02"></div>
-                    <div class="leg01"></div>
-                    <div class="leg02"></div>
+                <div class="gunHead">
+                    <div class="cap"></div>
                 </div>
-                <div class="gunObject"></div>
+                <div class="gunBody">
+                    <div class="leg legLeft"></div>
+                    <div class="leg legRight01"></div>
+                    <div class="leg legRight02"></div>
+                </div>
+                <div class="gunObject">
+                    <div class="handle01"></div>
+                    <div class="handle02"></div>
+                    <div class="muzzle"></div>
+                </div>
             </div>
             <div class="gunBallList"></div>
         </div>
